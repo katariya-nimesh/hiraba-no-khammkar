@@ -28,3 +28,11 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+
+# AdminLTE and vendor assets (auto-generated)
+/public/vendor
+
+# Vendor translations (auto-generated)
+/lang/vendor
+
+storage/framework/sessions
