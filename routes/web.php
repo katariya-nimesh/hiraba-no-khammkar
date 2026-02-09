@@ -1,7 +1,37 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\PublicApplicationController;
+
+// Authentication Routes
+Auth::routes(['register' => false]); // Disable registration
+
+// Admin Routes - Protected by auth middleware
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+
+        // Applications
+        Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
+        Route::post('/applications/{id}/update-status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+        Route::get('/applications/export', [ApplicationController::class, 'export'])->name('applications.export');
+        Route::get('/applications/{id}/download/{document}', [ApplicationController::class, 'downloadDocument'])->name('applications.download');
+    });
 });
+
+// Redirect root to admin or login
+Route::get('/', function () {
+    return Auth::check() ? redirect('/admin') : redirect('/login');
+});
+
+Route::get('/application', [PublicApplicationController::class, 'create'])
+    ->name('public.application.create');
+
+Route::post('/application', [PublicApplicationController::class, 'store'])
+    ->name('public.application.store');
+

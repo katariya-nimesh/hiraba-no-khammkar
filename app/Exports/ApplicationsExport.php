@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Exports;
+
+use App\Models\Application;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+
+class ApplicationsExport implements
+    FromQuery,
+    WithHeadings,
+    WithMapping,
+    WithChunkReading
+{
+    protected array $filters;
+
+    public function __construct(array $filters = [])
+    {
+        $this->filters = $filters;
+    }
+
+    public function query()
+    {
+        $query = Application::query();
+
+        // 🔍 Global search
+        if (!empty($this->filters['search'])) {
+            $search = $this->filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('student_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('student_aadhar', 'like', "%{$search}%");
+            });
+        }
+
+        // Status
+        if (!empty($this->filters['status'])) {
+            $query->where('status', $this->filters['status']);
+        }
+
+        // Date range
+        if (!empty($this->filters['from_date'])) {
+            $query->whereDate('created_at', '>=', $this->filters['from_date']);
+        }
+
+        if (!empty($this->filters['to_date'])) {
+            $query->whereDate('created_at', '<=', $this->filters['to_date']);
+        }
+
+        return $query->latest();
+    }
+
+    public function headings(): array
+    {
+        return [
+            'Reference No',
+            'Student Name',
+            'Father Name',
+            'Mother Name',
+            'Student Aadhar',
+            'Phone',
+            'Email',
+            'Status',
+            'Created Date',
+        ];
+    }
+
+    public function map($application): array
+    {
+        return [
+            $application->reference_no,
+            $application->student_name,
+            $application->father_name,
+            $application->mother_name,
+            $application->student_aadhar,
+            $application->phone,
+            $application->email,
+            ucfirst($application->status),
+            $application->created_at->format('d-m-Y'),
+        ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 500; // safe for large exports
+    }
+}
