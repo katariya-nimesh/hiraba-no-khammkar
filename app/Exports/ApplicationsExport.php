@@ -31,9 +31,9 @@ class ApplicationsExport implements
             $search = $this->filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('student_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhere('student_aadhar', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('student_aadhar', 'like', "%{$search}%");
             });
         }
 
@@ -58,13 +58,35 @@ class ApplicationsExport implements
     {
         return [
             'Reference No',
+            'Status',
+
             'Student Name',
             'Father Name',
+            'Surname',
             'Mother Name',
             'Student Aadhar',
+            'Father Aadhar',
+            'Mother Aadhar',
+
+            'Home Type',
+            'Address',
+            'Village',
+            'District',
+            'State',
+
             'Phone',
             'Email',
-            'Status',
+            'Total Family Members',
+            'Parent\'s Illness',
+            'Parent\'s Business',
+            'Monthly Income',
+
+            'School Name',
+            'Standard',
+            'School Phone',
+            'School Address',
+
+            'Remarks',
             'Created Date',
         ];
     }
@@ -73,13 +95,35 @@ class ApplicationsExport implements
     {
         return [
             $application->reference_no,
+            ucfirst($application->status),
+
             $application->student_name,
             $application->father_name,
+            $application->surname,
             $application->mother_name,
             $application->student_aadhar,
+            $application->father_aadhar,
+            $application->mother_aadhar,
+
+            $application->home_type,
+            $application->address,
+            $application->village,
+            $application->district,
+            $application->state,
+
             $application->phone,
             $application->email,
-            ucfirst($application->status),
+            $application->total_family_members,
+            $application->parents_illness,
+            $application->parents_business,
+            $application->monthly_income,
+
+            $application->school_name,
+            $application->standard,
+            $application->school_phone,
+            $application->school_address,
+
+            $application->remarks,
             $application->created_at->format('d-m-Y'),
         ];
     }
