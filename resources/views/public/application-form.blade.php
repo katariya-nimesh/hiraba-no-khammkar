@@ -31,22 +31,42 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Student Name</label>
-                            <input type="text" name="student_name" class="form-control">
+                            <input type="text" name="student_name" class="form-control" required>
+                            @error('student_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Father Name</label>
-                            <input type="text" name="father_name" class="form-control">
+                            <input type="text" name="father_name" class="form-control" required>
+                            @error('father_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Surname</label>
-                            <input type="text" name="surname" class="form-control">
+                            <input type="text" name="surname" class="form-control" required>
+                            @error('surname')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label>Mother Name</label>
-                            <input type="text" name="mother_name" class="form-control">
+                            <input type="text" name="mother_name" class="form-control" required>
+                            @error('mother_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -56,7 +76,7 @@
 
                             <input type="text" name="student_aadhar" value="{{ old('student_aadhar') }}"
                                 class="form-control aadhar-input @error('student_aadhar') is-invalid @enderror"
-                                maxlength="14" placeholder="XXXX XXXX XXXX">
+                                maxlength="14" placeholder="XXXX XXXX XXXX" required>
 
                             @error('student_aadhar')
                                 <div class="invalid-feedback">
@@ -71,7 +91,7 @@
 
                             <input type="text" name="father_aadhar" value="{{ old('father_aadhar') }}"
                                 class="form-control aadhar-input @error('father_aadhar') is-invalid @enderror"
-                                maxlength="14" placeholder="XXXX XXXX XXXX">
+                                maxlength="14" placeholder="XXXX XXXX XXXX" required>
 
                             @error('father_aadhar')
                                 <div class="invalid-feedback">
@@ -86,7 +106,7 @@
 
                             <input type="text" name="mother_aadhar" value="{{ old('mother_aadhar') }}"
                                 class="form-control aadhar-input @error('mother_aadhar') is-invalid @enderror"
-                                maxlength="14" placeholder="XXXX XXXX XXXX">
+                                maxlength="14" placeholder="XXXX XXXX XXXX" required>
 
                             @error('mother_aadhar')
                                 <div class="invalid-feedback">
@@ -116,7 +136,12 @@
 
                         <div class="mb-3">
                             <label class="form-label">Address</label>
-                            <textarea class="form-control" name="address"></textarea>
+                            <textarea class="form-control" name="address" required></textarea>
+                            @error('address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -124,19 +149,34 @@
                         <div class="col-md-4">
 
                             <label class="form-label">Village</label>
-                            <input type="text" name="village" class="form-control">
+                            <input type="text" name="village" class="form-control" required>
+                            @error('village')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-4">
 
                             <label class="form-label">District</label>
-                            <input type="text" name="district" class="form-control">
+                            <input type="text" name="district" class="form-control" required>
+                            @error('district')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-4">
 
                             <label class="form-label">State</label>
-                            <input type="text" name="state" class="form-control">
+                            <input type="text" name="state" class="form-control" required>
+                            @error('state')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -149,30 +189,60 @@
                             <label>Phone</label>
                             <input type="text" name="phone" class="form-control phone-input" required maxlength="11"
                                 placeholder="XXXXX XXXXX">
+                            @error('phone')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control" required>
+                            @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Total Family Members</label>
-                            <input type="number" name="total_family_members" class="form-control" min="1">
+                            <input type="number" name="total_family_members" class="form-control" min="1" required>
+                            @error('total_family_members')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label>Business</label>
-                            <input type="text" name="business" class="form-control">
+                            <input type="text" name="business" class="form-control" required>
+                            @error('business')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Income</label>
-                            <input type="text" name="income" class="form-control">
+                            <input type="text" name="income" class="form-control" required>
+                            @error('income')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="col-md-4">
                             <label>Parent's Illness</label>
                             <input type="text" name="illness" class="form-control">
+                            @error('illness')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <hr>
@@ -182,22 +252,42 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Name</label>
-                            <input type="text" name="school_name" class="form-control">
+                            <input type="text" name="school_name" class="form-control" required>
+                            @error('school_name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Standard</label>
-                            <input type="number" name="standard" class="form-control">
+                            <input type="number" name="standard" class="form-control" min="5" max="12" required>
+                            @error('standard')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="col-md-4">
                             <label>Phone No</label>
                             <input type="text" name="school_phone" class="form-control phone-input" required
                                 maxlength="11" placeholder="XXXXX XXXXX">
+                            @error('school_phone')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="">
                             <label>Address</label>
-                            <textarea name="school_address" class="form-control"></textarea>
+                            <textarea name="school_address" class="form-control" required></textarea>
+                            @error('school_address')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -223,7 +313,9 @@
                         @foreach ($docs as $name => $label)
                             <div class="col-md-4 mb-3">
                                 <label>{{ $label }}</label>
-                                <input type="file" name="{{ $name }}" class="form-control">
+                                <input type="file" name="{{ $name }}" class="form-control" @if ($name != 'death_certificate' &&  $name != 'other_document')
+                                    required
+                                @endif>
                             </div>
                         @endforeach
                     </div>
