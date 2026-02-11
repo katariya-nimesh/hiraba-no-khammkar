@@ -3,12 +3,21 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PublicApplicationController;
 use App\Http\Controllers\Admin\ApplicationExportController;
 
 // Authentication Routes
-Auth::routes(['register' => false]); // Disable registration
+// Auth::routes(['register' => false]); // Disable registration
+
+Route::get('/hnk-admin-login', [AuthController::class, 'showLogin'])
+    ->name('admin.login');
+
+Route::post('/hnk-admin-login', [LoginController::class, 'login'])
+    ->name('admin.login.submit');
+
 
 // Admin Routes - Protected by auth middleware
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -22,11 +31,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/applications/{id}/update-status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
         Route::get('/applications/{id}/download/{document}', [ApplicationController::class, 'downloadDocument'])->name('applications.download');
     });
-});
-
-// Redirect root to admin or login
-Route::get('/', function () {
-    return Auth::check() ? redirect('/admin') : redirect('/login');
 });
 
 Route::get('/application', [PublicApplicationController::class, 'create'])
