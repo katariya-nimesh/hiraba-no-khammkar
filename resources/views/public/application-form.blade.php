@@ -30,8 +30,9 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Student Name</label>
-                            <input type="text" name="student_name" class="form-control" required>
+                            <label class="form-label fw-semibold">Student Name <span class="text-danger">*</span></label>
+                            <input type="text" name="student_name" value="{{ old('student_name') }}" class="form-control"
+                                required>
                             @error('student_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -39,8 +40,9 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Father Name</label>
-                            <input type="text" name="father_name" class="form-control" required>
+                            <label class="form-label fw-semibold">Father Name <span class="text-danger">*</span></label>
+                            <input type="text" name="father_name" value="{{ old('father_name') }}" class="form-control"
+                                required>
                             @error('father_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -48,8 +50,8 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Surname</label>
-                            <input type="text" name="surname" class="form-control" required>
+                            <label class="form-label fw-semibold">Surname <span class="text-danger">*</span></label>
+                            <input type="text" name="surname" value="{{ old('surname') }}" class="form-control" required>
                             @error('surname')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -60,8 +62,9 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Mother Name</label>
-                            <input type="text" name="mother_name" class="form-control" required>
+                            <label class="form-label fw-semibold">Mother Name <span class="text-danger">*</span></label>
+                            <input type="text" name="mother_name" value="{{ old('mother_name') }}" class="form-control"
+                                required>
                             @error('mother_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -72,7 +75,7 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Student Aadhar</label>
+                            <label class="form-label fw-semibold">Student Aadhar <span class="text-danger">*</span></label>
 
                             <input type="text" name="student_aadhar" value="{{ old('student_aadhar') }}"
                                 class="form-control aadhar-input @error('student_aadhar') is-invalid @enderror"
@@ -87,7 +90,7 @@
 
 
                         <div class="col-md-4">
-                            <label>Father Aadhar</label>
+                            <label class="form-label fw-semibold">Father Aadhar <span class="text-danger">*</span></label>
 
                             <input type="text" name="father_aadhar" value="{{ old('father_aadhar') }}"
                                 class="form-control aadhar-input @error('father_aadhar') is-invalid @enderror"
@@ -102,7 +105,7 @@
 
 
                         <div class="col-md-4">
-                            <label>Mother Aadhar</label>
+                            <label class="form-label fw-semibold">Mother Aadhar <span class="text-danger">*</span></label>
 
                             <input type="text" name="mother_aadhar" value="{{ old('mother_aadhar') }}"
                                 class="form-control aadhar-input @error('mother_aadhar') is-invalid @enderror"
@@ -117,26 +120,28 @@
 
                     </div>
 
-
-
                     <hr>
                     <h5 class="mb-3">Address Details</h5>
                     <div class="row">
 
                         <div class="mb-3">
-                            <label class="form-label">Home</label>
+                            <label class="form-label fw-semibold">Home <span class="text-danger">*</span></label>
                             <select name="home_type" class="form-select">
                                 <option value="">Select</option>
-                                <option value="own">Own</option>
-                                <option value="rent">Rent</option>
+                                <option value="own" @if (old('home_type') == 'own')
+                                selected
+                                @endif>Own</option>
+                                <option value="rent" @if (old('home_type') == 'rent')
+                                selected
+                                @endif>Rent</option>
                             </select>
                         </div>
                     </div>
                     <div class="row">
 
                         <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <textarea class="form-control" name="address" required></textarea>
+                            <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="address" required>{{ old('address') }}</textarea>
                             @error('address')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -146,10 +151,11 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
 
-                            <label class="form-label">Village</label>
-                            <input type="text" name="village" class="form-control" required>
+                            <label class="form-label fw-semibold">Village <span class="text-danger">*</span></label>
+                            <input type="text" name="village" value="{{ old('village') }}" class="form-control"
+                                required>
                             @error('village')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -157,27 +163,43 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
 
-                            <label class="form-label">District</label>
-                            <input type="text" name="district" class="form-control" required>
+                            <label class="form-label fw-semibold">District <span class="text-danger">*</span></label>
+                            <input type="text" name="district" value="{{ old('district') }}" class="form-control"
+                                required>
                             @error('district')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
 
-                        <div class="col-md-4">
-
-                            <label class="form-label">State</label>
-                            <input type="text" name="state" class="form-control" required>
+                            <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                            <input type="text" name="state" value="{{ old('state') }}" class="form-control" required>
                             @error('state')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">
+                                Pincode <span class="text-danger">*</span>
+                            </label>
+
+                            <input type="text" name="pincode" value="{{ old('pincode') }}"
+                                class="form-control @error('pincode') is-invalid @enderror" maxlength="6"
+                                placeholder="Enter 6-digit Pincode">
+
+                            @error('pincode')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                     </div>
 
                     <hr>
@@ -186,9 +208,9 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Phone</label>
-                            <input type="text" name="phone" class="form-control phone-input" required maxlength="11"
-                                placeholder="XXXXX XXXXX">
+                            <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control phone-input" required
+                                maxlength="11" placeholder="XXXXX XXXXX">
                             @error('phone')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -196,8 +218,8 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" value="{{ old('email') }}" class="form-control" required>
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -205,8 +227,9 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Total Family Members</label>
-                            <input type="number" name="total_family_members" class="form-control" min="1" required>
+                            <label class="form-label fw-semibold">Total Family Members <span class="text-danger">*</span></label>
+                            <input type="number" name="total_family_members" value="{{ old('total_family_members') }}" class="form-control" min="1"
+                                required>
                             @error('total_family_members')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -217,8 +240,8 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Business</label>
-                            <input type="text" name="business" class="form-control" required>
+                            <label class="form-label fw-semibold">Business <span class="text-danger">*</span></label>
+                            <input type="text" name="business" value="{{ old('business') }}" class="form-control" required>
                             @error('business')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -226,8 +249,8 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Income</label>
-                            <input type="text" name="income" class="form-control" required>
+                            <label class="form-label fw-semibold">Income <span class="text-danger">*</span></label>
+                            <input type="text" name="income" value="{{ old('income') }}" class="form-control" required>
                             @error('income')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -236,8 +259,8 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label>Parent's Illness</label>
-                            <input type="text" name="illness" class="form-control">
+                            <label class="form-label fw-semibold">Parent's Illness</label>
+                            <input type="text" name="illness" value="{{ old('illness') }}" class="form-control">
                             @error('illness')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -251,8 +274,8 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label>Name</label>
-                            <input type="text" name="school_name" class="form-control" required>
+                            <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                            <input type="text" name="school_name" value="{{ old('school_name') }}" class="form-control" required>
                             @error('school_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -260,8 +283,9 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Standard</label>
-                            <input type="number" name="standard" class="form-control" min="5" max="12" required>
+                            <label class="form-label fw-semibold">Standard <span class="text-danger">*</span></label>
+                            <input type="number" name="standard" value="{{ old('standard') }}" class="form-control" min="5" max="12"
+                                required>
                             @error('standard')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -269,8 +293,8 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label>Phone No</label>
-                            <input type="text" name="school_phone" class="form-control phone-input" required
+                            <label class="form-label fw-semibold">Phone No <span class="text-danger">*</span></label>
+                            <input type="text" name="school_phone" value="{{ old('school_phone') }}" class="form-control phone-input" required
                                 maxlength="11" placeholder="XXXXX XXXXX">
                             @error('school_phone')
                                 <div class="invalid-feedback">
@@ -281,13 +305,109 @@
                     </div>
                     <div class="row">
                         <div class="">
-                            <label>Address</label>
-                            <textarea name="school_address" class="form-control" required></textarea>
+                            <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                            <textarea name="school_address" class="form-control" required>{{ old('school_address') }}</textarea>
                             @error('school_address')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="border-0 card mt-4">
+                            {{-- <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">School Bank Details</h5>
+                            </div> --}}
+
+                            <div class="card-body border">
+                                <div class="row g-3">
+                                    <h5>Bank Details:</h5>
+                                </div>
+
+                                <div class="row g-3">
+
+                                    <!-- Account Holder Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            Account Holder Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="school_account_holder_name"
+                                            value="{{ old('school_account_holder_name') }}"
+                                            class="form-control @error('school_account_holder_name') is-invalid @enderror"
+                                            placeholder="Enter Account Holder Name">
+
+                                        @error('school_account_holder_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Bank Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            Bank Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="school_bank_name"
+                                            value="{{ old('school_bank_name') }}"
+                                            class="form-control @error('school_bank_name') is-invalid @enderror"
+                                            placeholder="Enter Bank Name">
+
+                                        @error('school_bank_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Account Number -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            Account Number <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="school_account_number"
+                                            value="{{ old('school_account_number') }}"
+                                            class="form-control @error('school_account_number') is-invalid @enderror"
+                                            placeholder="Enter Account Number">
+
+                                        @error('school_account_number')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- IFSC -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">
+                                            IFSC Code <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" name="school_ifsc" value="{{ old('school_ifsc') }}"
+                                            class="form-control text-uppercase @error('school_ifsc') is-invalid @enderror"
+                                            placeholder="Example: SBIN0001234">
+
+                                        @error('school_ifsc')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Cancelled Cheque Upload -->
+                                    <div class="col-12 mt-3">
+                                        <label class="form-label fw-semibold">
+                                            Upload Cancelled Cheque <span class="text-danger">*</span>
+                                        </label>
+
+                                        <input type="file" name="cancelled_cheque"
+                                            class="form-control @error('cancelled_cheque') is-invalid @enderror"
+                                            accept=".jpg,.jpeg,.png,.pdf">
+
+                                        <small class="text-muted">
+                                            Allowed formats: JPG, PNG, PDF (Max 2MB)
+                                        </small>
+
+                                        @error('cancelled_cheque')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -312,10 +432,9 @@
                     <div class="row">
                         @foreach ($docs as $name => $label)
                             <div class="col-md-4 mb-3">
-                                <label>{{ $label }}</label>
-                                <input type="file" name="{{ $name }}" class="form-control" @if ($name != 'death_certificate' &&  $name != 'other_document')
-                                    required
-                                @endif>
+                                <label class="form-label fw-semibold">{{ $label }} @if ($name != 'death_certificate' && $name != 'other_document') <span class="text-danger">*</span> @endif</label>
+                                <input type="file" name="{{ $name }}" class="form-control"
+                                    @if ($name != 'death_certificate' && $name != 'other_document') required @endif>
                             </div>
                         @endforeach
                     </div>

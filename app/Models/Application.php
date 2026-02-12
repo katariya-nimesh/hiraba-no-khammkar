@@ -35,12 +35,17 @@ class Application extends Model
         'village',
         'district',
         'state',
+        'pincode',
 
         // School
         'school_name',
         'standard',
         'school_phone',
         'school_address',
+        'school_ac_name',
+        'school_ac_number',
+        'school_ifsc',
+        'school_bank_name',
 
         // Internal
         'remarks',
