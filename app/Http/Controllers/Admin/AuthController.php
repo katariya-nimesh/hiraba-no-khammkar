@@ -34,6 +34,6 @@ class AuthController
     public function logout()
     {
         session()->forget('admin_logged_in');
-        return redirect()->route('admin.login');
+        return redirect()->route('login');
     }
 }

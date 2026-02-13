@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\ApplicationInstallment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
@@ -49,13 +50,28 @@ class Application extends Model
 
         // Internal
         'remarks',
+        'remark_updated_at',
         'status',
         'status_updated_at',
     ];
 
     protected $casts = [
         'status_updated_at' => 'datetime',
+        'remark_updated_at' => 'datetime'
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($application) {
+
+            for ($i = 1; $i <= 3; $i++) {
+                $application->installments()->create([
+                    'installment_no' => $i,
+                    'is_paid' => false,
+                ]);
+            }
+        });
+    }
 
     /**
      * An application has many uploaded documents
@@ -63,5 +79,16 @@ class Application extends Model
     public function documents()
     {
         return $this->hasMany(ApplicationDocument::class);
+    }
+
+    public function installments()
+    {
+        return $this->hasMany(ApplicationInstallment::class)->orderBy('installment_no');
+    }
+
+    public function installment($number)
+    {
+        return $this->installments
+            ->firstWhere('installment_no', $number);
     }
 }

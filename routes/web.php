@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\ApplicationExportController;
 // Auth::routes(['register' => false]); // Disable registration
 
 Route::get('/hnk-admin-login', [AuthController::class, 'showLogin'])
-    ->name('admin.login');
+    ->name('login');
 
 Route::post('/hnk-admin-login', [LoginController::class, 'login'])
     ->name('admin.login.submit');
@@ -30,6 +30,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
         Route::post('/applications/{id}/update-status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
         Route::get('/applications/{id}/download/{document}', [ApplicationController::class, 'downloadDocument'])->name('applications.download');
+         Route::put(
+            '/installments/{installment}',
+            [ApplicationController::class, 'update']
+        )->name('installments.update');
     });
 });
 

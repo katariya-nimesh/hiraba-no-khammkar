@@ -73,6 +73,7 @@ class ApplicationsExport implements
             'Village',
             'District',
             'State',
+            'Pincode',
 
             'Phone',
             'Email',
@@ -85,6 +86,22 @@ class ApplicationsExport implements
             'Standard',
             'School Phone',
             'School Address',
+            'School Account Holder Name',
+            'School Account Number',
+            'School Bank IFSC',
+            'School Bank Name',
+
+            'Installment 1 Status',
+            'Installment 1 Note',
+            'Installment 1 Paid Date',
+
+            'Installment 2 Status',
+            'Installment 2 Note',
+            'Installment 2 Paid Date',
+
+            'Installment 3 Status',
+            'Installment 3 Note',
+            'Installment 3 Paid Date',
 
             'Remarks',
             'Created Date',
@@ -93,6 +110,10 @@ class ApplicationsExport implements
 
     public function map($application): array
     {
+        $inst1 = $application->installments->firstWhere('installment_no', 1);
+        $inst2 = $application->installments->firstWhere('installment_no', 2);
+        $inst3 = $application->installments->firstWhere('installment_no', 3);
+
         return [
             $application->reference_no,
             ucfirst($application->status),
@@ -110,6 +131,7 @@ class ApplicationsExport implements
             $application->village,
             $application->district,
             $application->state,
+            $application->pincode,
 
             $application->phone,
             $application->email,
@@ -122,6 +144,25 @@ class ApplicationsExport implements
             $application->standard,
             $application->school_phone,
             $application->school_address,
+            $application->school_ac_name,
+            $application->school_ac_number,
+            $application->school_ifsc,
+            $application->school_bank_name,
+
+            // Installment 1
+            $inst1?->is_paid ? 'Paid' : 'Pending',
+            $inst1?->note,
+            optional($inst1?->paid_at)->format('d-m-Y'),
+
+            // Installment 2
+            $inst2?->is_paid ? 'Paid' : 'Pending',
+            $inst2?->note,
+            optional($inst2?->paid_at)->format('d-m-Y'),
+
+            // Installment 3
+            $inst3?->is_paid ? 'Paid' : 'Pending',
+            $inst3?->note,
+            optional($inst3?->paid_at)->format('d-m-Y'),
 
             $application->remarks,
             $application->created_at->format('d-m-Y'),
