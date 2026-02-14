@@ -26,6 +26,7 @@ class ApplicationStoreRequest extends FormRequest
             "village" => "required|string|max:255",
             "district" => "required|string|max:255",
             "state" => "required|string|max:255",
+            'pincode' => "required|digits:6",
             "phone" => "required|numeric",
             "email" => "required|email",
             "total_family_members" => "required|numeric|min:1",
@@ -36,6 +37,11 @@ class ApplicationStoreRequest extends FormRequest
             "standard" => "required|numeric|between:5,12",
             "school_phone" => "required|numeric",
             "school_address" => "required|string",
+            // School Bank Details
+            'school_account_holder_name' => "required|string|max:100",
+            'school_account_number' => "required|regex:/^[0-9]{6,18}$/",
+            'school_ifsc' => "required|regex:/^[A-Z]{4}0[A-Z0-9]{6}$/",
+            'school_bank_name' => "required|string|max:100",
         ];
     }
 
@@ -47,6 +53,17 @@ class ApplicationStoreRequest extends FormRequest
             'mother_aadhar'  => preg_replace('/\s+/', '', $this->mother_aadhar),
             'phone'          => preg_replace('/\s+/', '', $this->phone),
             'school_phone'   => preg_replace('/\s+/', '', $this->school_phone),
+            'school_ifsc'    => strtoupper($this->school_ifsc),
         ]);
+    }
+
+    public function messages(): array
+    {
+        return [
+            'school_ifsc.regex' => 'Please enter a valid IFSC code (Example: SBIN0001234).',
+            'school_account_number.digits_between' => 'Account number must be between 9 and 18 digits.',
+            'cancelled_cheque.mimes' => 'Cancelled cheque must be JPG, PNG or PDF format.',
+            'cancelled_cheque.max' => 'Cancelled cheque file size must not exceed 2MB.',
+        ];
     }
 }

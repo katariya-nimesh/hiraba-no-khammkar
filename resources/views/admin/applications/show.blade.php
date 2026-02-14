@@ -8,31 +8,33 @@
 
 @section('css')
     <style>
-/* Base */
-.status-select {
-    font-weight: 600;
-    color: #fff;
-    border: none;
-}
+        /* Base */
+        .status-select {
+            font-weight: 600;
+            color: #fff;
+            border: none;
+        }
 
-/* Status colors */
-.status-pending {
-    background-color: #f0ad4e; /* yellow */
-}
+        /* Status colors */
+        .status-pending {
+            background-color: #f0ad4e;
+            /* yellow */
+        }
 
-.status-approved {
-    background-color: #28a745; /* green */
-}
+        .status-approved {
+            background-color: #28a745;
+            /* green */
+        }
 
-.status-rejected {
-    background-color: #dc3545; /* red */
-}
+        .status-rejected {
+            background-color: #dc3545;
+            /* red */
+        }
 
-/* Fix arrow visibility */
-.status-select option {
-    color: #000;
-}
-
+        /* Fix arrow visibility */
+        .status-select option {
+            color: #000;
+        }
     </style>
 @endsection
 
@@ -122,6 +124,7 @@
                 <div class="col-md-4"><strong>Village:</strong> {{ $application->village }}</div>
                 <div class="col-md-4"><strong>District:</strong> {{ $application->district }}</div>
                 <div class="col-md-4 mt-2"><strong>State:</strong> {{ $application->state }}</div>
+                <div class="col-md-4 mt-2"><strong>Pincode:</strong> {{ $application->pincode }}</div>
                 <div class="col-md-8 mt-2"><strong>Address:</strong> {{ $application->address }}</div>
             </div>
         </div>
@@ -155,25 +158,147 @@
         </div>
     </div>
 
+    <div class="card mb-3">
+        <div class="card-header bg-light">
+            <strong>School Bank Information</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Account Holder Name:</strong><br>
+                    {{ $application->school_ac_name ?? 'N/A' }}
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Bank Name:</strong><br>
+                    {{ $application->school_bank_name ?? 'N/A' }}
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <strong>Account Number:</strong><br>
+                    {{ $application->school_ac_number ?? 'N/A' }}
+                </div>
+
+                <div class="col-md-6 mt-3">
+                    <strong>IFSC Code:</strong><br>
+                    {{ $application->school_ifsc ?? 'N/A' }}
+                </div>
+            </div>
+
+            @if ($application->documents->firstWhere('type', 'cancelled_cheque'))
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <strong>Cancelled Cheque:</strong><br>
+                        <a href="{{ asset('storage/' . $application->documents->firstWhere('type', 'cancelled_cheque')->file_path) }}"
+                            target="_blank" class="btn btn-sm btn-primary">
+                            View Cheque
+                        </a>
+                        <a href="{{ asset('storage/' . $application->documents->firstWhere('type', 'cancelled_cheque')->file_path) }}"
+                            download class="btn btn-sm btn-primary">
+                            Download Cheque
+                        </a>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <strong>Scholarship Installments</strong>
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-bordered align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th width="10%">#</th>
+                        <th width="15%">Status</th>
+                        <th width="45%">Note (Cheque No / Remarks)</th>
+                        <th width="15%">Paid Date</th>
+                        <th width="15%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach ($application->installments as $installment)
+                        <tr>
+                            <form method="POST" action="{{ route('admin.installments.update', $installment->id) }}">
+                                @csrf
+                                @method('PUT')
+
+                                <td>
+                                    <strong>{{ $installment->installment_no }}</strong>
+                                </td>
+
+                                <td>
+                                    <select name="is_paid" class="form-select form-select-sm">
+                                        <option value="0" {{ !$installment->is_paid ? 'selected' : '' }}>
+                                            Pending
+                                        </option>
+                                        <option value="1" {{ $installment->is_paid ? 'selected' : '' }}>
+                                            Paid
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <textarea name="note" rows="2" class="form-control form-control-sm"
+                                        placeholder="Enter cheque no or remarks...">{{ $installment->note }}</textarea>
+                                </td>
+
+                                <td>
+                                    @if ($installment->paid_at)
+                                        <span class="badge bg-success">
+                                            {{ $installment->paid_at->format('d M Y') }}
+                                        </span>
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        Save
+                                    </button>
+                                </td>
+
+                            </form>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <strong>Remarks</strong>
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('admin.applications.updateStatus', $application->id) }}" id="remarkForm">
+            <form method="POST" action="{{ route('admin.applications.updateStatus', $application->id) }}"
+                id="remarkForm">
                 @csrf
                 @method('POST')
 
                 <textarea name="remarks" class="form-control" rows="3" placeholder="Enter remark...">{{ $application->remarks }}</textarea>
+                <div class="align-items-center d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary btn-sm mt-2">
+                        Save Remark
+                    </button>
+                    @if ($application->remark_updated_at)
+                        <span class="text-mute">
+                            Last Updated at: {{ $application->remark_updated_at->format('d M Y') }}
 
-                <button type="submit" class="btn btn-primary btn-sm mt-2">
-                    Save Remark
-                </button>
+                        </span>
+                    @endif
+                </div>
             </form>
         </div>
     </div>
-
 
     {{-- Documents --}}
     <div class="card">

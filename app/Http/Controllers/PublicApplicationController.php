@@ -37,6 +37,7 @@ class PublicApplicationController extends Controller
             'village' => $request->village,
             'district' => $request->district,
             'state' => $request->state,
+            'pincode' => $request->pincode,
 
             //Contact & Family Details
             'phone' => $request->phone,
@@ -51,6 +52,10 @@ class PublicApplicationController extends Controller
             'standard' => $request->standard,
             'school_phone' => $request->school_phone,
             'school_address' => $request->school_address,
+            'school_ac_name' => $request->school_account_holder_name,
+            'school_ac_number' => $request->school_account_number,
+            'school_ifsc' => $request->school_ifsc,
+            'school_bank_name' => $request->school_bank_name,
 
             'application_status' => 'pending',
         ]);
@@ -64,6 +69,7 @@ class PublicApplicationController extends Controller
             'electricity_bill',
             'death_certificate',
             'last_year_marksheet',
+            'cancelled_cheque',
             'other_document',
         ];
 
