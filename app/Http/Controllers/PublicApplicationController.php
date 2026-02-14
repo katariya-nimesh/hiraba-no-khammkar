@@ -89,4 +89,9 @@ class PublicApplicationController extends Controller
         return redirect()->back()
             ->with(['success' => 'Application submitted successfully', 'reference_no' => $application->reference_no]);
     }
+
+    public function homePage()
+    {
+        return view('public.home-page');
+    }
 }
