@@ -42,3 +42,6 @@ Route::get('/application', [PublicApplicationController::class, 'create'])
 
 Route::post('/application', [PublicApplicationController::class, 'store'])
     ->name('public.application.store');
+
+Route::post('/', [PublicApplicationController::class, 'homePage'])
+    ->name('public.application.homePage');
