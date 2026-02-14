@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- <link rel="stylesheet" href="css/style.css"> -->
-    <!-- @vite(['resources/css/style.css', 'resources/js/script.js']) -->
      <style>
         /* Theme: "Modern Service" - Premium, Trustworthy, Culturally Respectful
    Palette: Deep Navy (#0a2642), Soft Saffron (#FF9933), Gold (#C5A000)
