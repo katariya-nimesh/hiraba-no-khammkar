@@ -336,7 +336,7 @@
 
                                 {{-- <div class="card-body border"> --}}
                                     <div class="row g-2">
-                                        <h5>Bank Details:</h5>
+                                        <h5>School Bank Details:</h5>
                                     </div>
 
                                     <div class="row">
