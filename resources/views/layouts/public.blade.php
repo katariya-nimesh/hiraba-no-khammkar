@@ -174,7 +174,7 @@
         <nav class="navbar navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="{{ asset('images/Hiraba-No-Khumkar-logo.jpg') }}" alt="Logo" height="110">
+                    <img src="{{ asset('img/logo.png') }}" alt="Logo" height="110">
                 </a>
                 <h3>Scholarship Application</h3>
                 <img src="{{ asset('images/Beti_Bachao_Beti_Padhao_logo.jpg') }}" alt="Logo" height="110"
@@ -196,7 +196,7 @@
                     {{-- Left: Organization --}}
                     <div class="col-md-4">
                         <h5 class="fw-bold mb-1 title-text">
-                            Hiraba No Khammkar
+                            Hiraba No Khamkar
                         </h5>
                         <small class="subtitle-text">
                             Foundation
@@ -247,7 +247,7 @@
 
                 {{-- Bottom --}}
                 <div class="text-center small text-muted">
-                    © {{ date('Y') }} Hiraba No Khammkar Foundation. All rights reserved.
+                    © {{ date('Y') }} Hiraba No Khamkar Foundation. All rights reserved.
                 </div>
 
             </div>
