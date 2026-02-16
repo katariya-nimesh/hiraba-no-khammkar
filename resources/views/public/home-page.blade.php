@@ -1330,8 +1330,19 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                         wisdom.
                     </p>
                     <div class="signature-box">
-                        <p class="gujarati" style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">"જ્યાં
-                            નારી પૂજાય છે, ત્યાં દેવતા વસે છે."</p>
+                         <p class="gujarati"
+
+                            style="font-size: 1.25rem; font-weight: 700; color: var(--primary); line-height: 1.6;">
+
+                            જ્યાં દીકરી શિક્ષિત થાય છે,<br>
+
+                            ત્યાં આખો પરિવાર આગળ વધે છે.<br>
+
+                            દીકરીઓના સપનાઓને પાંખ આપીએ.<br>
+
+                            કારણ કે દીકરી કમજોર નથી – દીકરી એક શક્તિ છે
+
+                        </p>
                         <small class="text-muted">- A Guided Philosophy</small>
                     </div>
                 </div>
@@ -1361,8 +1372,8 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                 <div class="benefit-card">
                     <div class="card-icon"><i class="fas fa-rupee-sign"></i></div>
                     <h4 class="card-title">₹7,500 Support</h4>
-                    <p class="text-muted">Annual financial assistance to cover tuition fees, books, and supplies,
-                        ensuring no girl is left behind.</p>
+                    <p class="text-muted">Annual financial assistance to support the higher education of meritorious
+                        girl students, ensuring no girl is left behind.</p>
                 </div>
                 <div class="benefit-card">
                     <div class="card-icon"><i class="fas fa-university"></i></div>
@@ -1507,8 +1518,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
             <div class="footer-grid">
                 <div>
                     <div class="footer-brand">
-                        <div class="footer-icon"><i class="fas fa-hands-holding-child"></i></div>
-                        <h4 class="gujarati">હીરાબાનો ખમ્મકાર</h4>
+                        <img src="img/logo.png" alt="Heeraba No Khamkar" class="footer-logo-img">
                     </div>
                     <p class="footer-desc">
                         Empowering girls through education since 2008. A philanthropic initiative by the Piyushbhai
@@ -1540,29 +1550,33 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:info@heeraba.org">info@heeraba.org</a>
+                        <a href="mailto:hirabanokhamakar@gmail.com">hirabanokhamakar@gmail.com</a>
                     </div>
                 </div>
 
                 <div>
                     <div class="map-container">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.065873526978!2d72.83658231493454!3d21.191244985910385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e59411d1563%3A0xfe4558290938b042!2sEmpire%20State%20Building%2C%20Ring%20Rd%2C%20Udhna%20Darwaja%2C%20Sagrampura%2C%20Surat%2C%20Gujarat%20395002!5e0!3m2!1sen!2sin!4v1676295555555!5m2!1sen!2sin"
-                            class="map-frame" allowfullscreen="" loading="lazy"></iframe>
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1860.0967224960234!2d72.83154877195871!3d21.184473011390363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e43933bcb8b%3A0x8033269b5a063654!2sEmpire%20State%20Building!5e0!3m2!1sen!2sin!4v1771154683852!5m2!1sen!2sin"
+
+                            class="map-frame" allowfullscreen="" loading="lazy"
+
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <div class="copyright-text">
-                    © 2026 Piyushbhai Desai Foundation. All Rights Reserved. <span class="separator">|</span>
+                    © 2026 Hiraba No Khamkar Foundation. All Rights Reserved. <span class="separator">|</span>
                     Designed by <a href="https://infinitedevelopers.in/" target="_blank" class="dev-link">Infinite
                         Developers</a>
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/desaipiyush91/" target="_blank" class="social-btn"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/desai_piyush_official/" target="_blank" class="social-btn"><i
+                            class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
