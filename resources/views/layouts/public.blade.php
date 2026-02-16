@@ -149,43 +149,148 @@
             font-weight: 500;
         }
 
-        .title-text{
+        .title-text {
             color: var(--pdf-dark-green);
         }
 
-        .subtitle-text{
+        .subtitle-text {
             color: var(--pdf-dark-red);
         }
 
-        .submit-button{
-            background-color:var(--pdf-dark-red);
+        .submit-button {
+            background-color: var(--pdf-dark-red);
             color: #fff;
         }
 
-        .icon-color{
-            color:var(--pdf-dark-red);
+        .icon-color {
+            color: var(--pdf-dark-red);
+        }
+
+        /* Header Wrapper */
+        .header-wrapper {
+            background-color: #f5f5f5;
+            /* border: 12px solid #e06000; */
+        }
+
+        /* Title Styling */
+        .main-title {
+            color: #1e6b3c;
+            font-weight: 700;
+            font-size: 42px;
+            letter-spacing: 1px;
+        }
+
+        .sub-title {
+            color: #c0392b;
+            font-weight: 700;
+        }
+
+        /* Right Photo Box */
+        .photo-box {
+            width: 160px;
+            height: 180px;
+            border: 2px solid #c0392b;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* Form No Box */
+        .form-no-box {
+            width: 160px;
+            height: 45px;
+            border: 2px solid #c0392b;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* Gujarati text sizing */
+        .header-left p {
+            font-size: 14px;
+        }
+
+        /* Light Yellow Highlight Background */
+        .intro-box {
+            background-color: #fff3b0;
+            /* soft yellow */
+            display: inline-block;
+        }
+
+        /* Main Gujarati Line */
+        .intro-text {
+            font-size: 15px;
+            color: #000;
+        }
+
+        /* Amount Highlight */
+        .amount-highlight {
+            color: #c00000;
+            font-weight: 700;
         }
     </style>
 </head>
 
 <body>
     <div class="container" style="border: 10px solid rgb(223, 145, 1)">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img src="{{ asset('img/logo.png') }}" alt="Logo" height="110">
-                </a>
-                <h3>Scholarship Application</h3>
-                <img src="{{ asset('images/Beti_Bachao_Beti_Padhao_logo.jpg') }}" alt="Logo" height="110"
-                    class="me-2">
-            </div>
-        </nav>
+        <div class="header-wrapper position-relative p-4 m-3">
 
-        <div class="container my-5">
-            @yield('content')
+            {{-- Top Row --}}
+            <div class="d-flex justify-content-between align-items-start">
+
+                {{-- Left Gujarati Intro --}}
+                <div class="header-left intro-box p-2">
+                    <p class="mb-1 fw-bold intro-text">
+                        આ યોજનાનો લાભ ધોરણ ૫ થી ૧૨ વિદ્યાર્થીનીઓ માટે
+                        <span class="amount-highlight">રૂ. ૭૫૦૦/-</span>
+                        શાળાની ફી માટેની આર્થિક સહાય
+                    </p>
+
+                    <p class="small fw-bold mb-0 subtitle-text">
+                        CIN : U85500GJ2026NPL171502
+                    </p>
+                </div>
+
+
+                {{-- Center Main Logo --}}
+                <div class="text-center">
+                    <img src="{{ asset('images/Beti_Bachao_Beti_Padhao_logo.jpg') }}" height="90">
+                </div>
+
+                {{-- Right Side Boxes --}}
+                {{-- <div class="header-right text-end">
+            <div class="photo-box mb-3">
+                વિદ્યાર્થીનો ફોટો
+            </div>
+
+            <div class="form-no-box">
+                ફોર્મ નં.
+            </div>
+        </div> --}}
+
+            </div>
+
+            {{-- Main Title --}}
+            <div class="text-center">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" height="200">
+                {{-- <h1 class="main-title">
+                    “ હીરાબાનો ખમકાર ”
+                </h1>
+                <h4 class="sub-title">
+                    ફાઉન્ડેશન
+                </h4> --}}
+            </div>
+
         </div>
 
 
+        <div class="container my-2">
+            @yield('content')
+        </div>
 
         <footer class="main-footer bg-white border-top mt-4">
             <div class="container-fluid py-4">
@@ -211,6 +316,13 @@
                         <div class="mb-2">
                             <i class="fas fa-phone-alt me-2 icon-color"></i>
                             <span class="small">+91 63591 86191</span>
+                        </div>
+                        <div class="mb-2">
+                            <a href="https://wa.me/916359186191" target="_blank"
+                                class="small text-decoration-none d-inline-flex align-items-center text-dark">
+                                <i class="fab fa-whatsapp me-2 fs-5 icon-color"></i>
+                                <span>Chat on WhatsApp</span>
+                            </a>
                         </div>
 
                         <div class="mb-2">

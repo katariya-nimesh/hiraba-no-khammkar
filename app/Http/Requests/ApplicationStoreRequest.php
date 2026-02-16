@@ -47,6 +47,7 @@ class ApplicationStoreRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        session(['showForm' => true]);
         $this->merge([
             'student_aadhar' => preg_replace('/\s+/', '', $this->student_aadhar),
             'father_aadhar'  => preg_replace('/\s+/', '', $this->father_aadhar),

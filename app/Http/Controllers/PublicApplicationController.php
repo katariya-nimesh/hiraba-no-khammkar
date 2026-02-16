@@ -7,12 +7,20 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ApplicationDocument;
 use App\Http\Requests\ApplicationStoreRequest;
+use App\Models\Cities;
 
 class PublicApplicationController extends Controller
 {
-    public function create()
+    public function create(Request $request)
     {
-        return view('public.application-form');
+        $cities = Cities::where('is_active', 1)->pluck('name');
+        $showForm = false;
+
+        if ($request->agree == 1     || session()->has('showForm') || $request->session()->getOldInput()) {
+            $showForm = true;
+            session(['showForm' => true]);
+        }
+        return view('public.application-form', compact('showForm', 'cities'));
     }
 
     public function store(ApplicationStoreRequest $request)
@@ -85,7 +93,7 @@ class PublicApplicationController extends Controller
                 ]);
             }
         }
-
+        session()->flush();
         return redirect()->back()
             ->with(['success' => 'Application submitted successfully', 'reference_no' => $application->reference_no]);
     }
