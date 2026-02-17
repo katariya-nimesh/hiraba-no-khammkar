@@ -37,6 +37,14 @@ class ApplicationController extends Controller
             $query->where('status', $filters['status']);
         }
 
+        // 📌 Installment payment filter - show records where selected installment is paid
+        if (!empty($filters['installment_no'])) {
+            $query->whereHas('installments', function ($q) use ($filters) {
+                $q->where('installment_no', $filters['installment_no'])
+                  ->where('is_paid', true);
+            });
+        }
+
         // 📅 Date range filter
         if (!empty($filters['from_date'])) {
             $query->whereDate('created_at', '>=', $filters['from_date']);

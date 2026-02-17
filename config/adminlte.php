@@ -62,7 +62,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-    
+
     'logo' => '<b>HNK</b>',
     'logo_img' => 'img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
@@ -308,6 +308,11 @@ return [
             'text' => 'Applications',
             'url'  => 'admin/applications',
             'icon' => 'fas fa-fw fa-file-alt',
+        ],
+        [
+            'text' => 'Cities',
+            'url'  => 'admin/cities',
+            'icon' => 'fas fa-fw fa-city',
         ],
         // // Navbar items:
         // [

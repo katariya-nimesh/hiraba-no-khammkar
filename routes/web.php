@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PublicApplicationController;
 use App\Http\Controllers\Admin\ApplicationExportController;
+use App\Http\Controllers\CityController;
 
 // Authentication Routes
 // Auth::routes(['register' => false]); // Disable registration
@@ -18,6 +19,8 @@ Route::get('/hnk-admin-login', [AuthController::class, 'showLogin'])
 Route::post('/hnk-admin-login', [LoginController::class, 'login'])
     ->name('admin.login.submit');
 
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
 
 // Admin Routes - Protected by auth middleware
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -30,10 +33,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
         Route::post('/applications/{id}/update-status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
         Route::get('/applications/{id}/download/{document}', [ApplicationController::class, 'downloadDocument'])->name('applications.download');
-         Route::put(
-            '/installments/{installment}',
-            [ApplicationController::class, 'update']
-        )->name('installments.update');
+        Route::put('/installments/{installment}',[ApplicationController::class, 'update'])->name('installments.update');
+
+        // Cities
+        Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
+        Route::post('/cities/update-status/{id?}', [CityController::class, 'updateStatus'])->name('cities.updateStatus');
     });
 });
 

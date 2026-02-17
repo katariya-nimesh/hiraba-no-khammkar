@@ -33,7 +33,7 @@ class AuthController
 
     public function logout()
     {
-        session()->forget('admin_logged_in');
+        session()->flush();
         return redirect()->route('login');
     }
 }

@@ -14,20 +14,22 @@ class ApplicationSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'     => ['nullable', 'string', 'max:255'],
-            'status'     => ['nullable', 'string'],
-            'from_date'  => ['nullable', 'date'],
-            'to_date'    => ['nullable', 'date', 'after_or_equal:from_date'],
+            'search'             => ['nullable', 'string', 'max:255'],
+            'status'             => ['nullable', 'string'],
+            'from_date'          => ['nullable', 'date'],
+            'to_date'            => ['nullable', 'date', 'after_or_equal:from_date'],
+            'installment_no'     => ['nullable', 'integer', 'in:1,2,3'],
         ];
     }
 
     public function validatedData(): array
     {
         return [
-            'search'    => trim($this->input('search')),
-            'status'    => $this->input('status'),
-            'from_date' => $this->input('from_date'),
-            'to_date'   => $this->input('to_date'),
+            'search'          => trim($this->input('search')),
+            'status'          => $this->input('status'),
+            'from_date'       => $this->input('from_date'),
+            'to_date'         => $this->input('to_date'),
+            'installment_no'  => $this->input('installment_no'),
         ];
     }
 }
