@@ -46,6 +46,10 @@
                 <div>
                     <strong>Reference No:</strong> {{ $application->reference_no }}
                 </div>
+                <a href="https://wa.me/91{{ preg_replace('/[^0-9]/', '', $application->phone) }}" target="_blank"
+                    class="btn btn-sm btn-success">
+                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                </a>
 
                 <form method="POST" action="{{ route('admin.applications.updateStatus', $application->id) }}"
                     class="d-inline">
