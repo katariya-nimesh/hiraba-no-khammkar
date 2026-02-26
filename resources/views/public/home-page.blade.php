@@ -17,7 +17,7 @@
 
     <!-- <link rel="stylesheet" href="css/style.css"> -->
      <style>
-        /* Theme: "Modern Service" - Premium, Trustworthy, Culturally Respectful
+       /* Theme: "Modern Service" - Premium, Trustworthy, Culturally Respectful
    Palette: Deep Navy (#0a2642), Soft Saffron (#FF9933), Gold (#C5A000)
    Font: 'Inter' (Body), 'Noto Sans Gujarati' (Local)
 */
@@ -705,15 +705,17 @@ p { margin-bottom: 1rem; max-width: 65ch; }
     width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; opacity: 0.9;
 }
 
-/* 8. Gallery Masonry */
+/* 8. Gallery - Justified Row Layout */
 .masonry-grid {
-    column-count: 3;
-    column-gap: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     margin-bottom: 3rem;
 }
 .masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    height: 300px;
+    min-width: 300px;
     border-radius: 16px;
     overflow: hidden;
     position: relative;
@@ -722,6 +724,8 @@ p { margin-bottom: 1rem; max-width: 65ch; }
 }
 .masonry-item img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.6s ease;
 }
@@ -1198,16 +1202,6 @@ p { margin-bottom: 1rem; max-width: 65ch; }
 
 <body>
 
-    <div class="top-bar">
-        <div class="marquee-wrapper">
-            <span><i class="fas fa-bullhorn"></i> Application Closing on 18/02/2026 – Apply online at
-                hirabanokhamkar.com
-                  •   ⚠️ Important: Bank Account Name must match Student
-                School Record   •   <i class="fas fa-bullhorn"></i> Last Date:
-                18/02/2026</span>
-        </div>
-    </div>
-
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -1347,12 +1341,9 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     </div>
                 </div>
                 <div class="heeraba-images">
-                    <div class="img-card img-card-1">
-                        <img src="{{ asset('img/Heeraba-No-Khamkar-1.jpg') }}" alt="Heeraba Portrait">
-                    </div>
-                    <div class="img-card img-card-2">
-                        <img src="{{ asset('img/Heeraba-No-Khamkar-2.jpg') }}" alt="Heeraba with PM Modi">
-                    </div>
+                    <img src="{{ asset('img/logo.png') }}" alt="Heeraba No Khamkar Foundation"
+
+                        style="width: 450px; max-width: 95%; height: auto; z-index: 2;">
                     <div class="decorative-circle"></div>
                 </div>
             </div>
@@ -1466,6 +1457,11 @@ p { margin-bottom: 1rem; max-width: 65ch; }
             </div>
 
             <div class="masonry-grid" id="masonry-grid">
+                <div class="masonry-item"><img src="{{ asset('img/Image-with-CR-patil-1.jpeg') }}" alt="Moments of Joy 1"></div>
+                <div class="masonry-item"><img src="{{ asset('img/Image-with-CR-patil-2.jpeg') }}" alt="Moments of Joy 2"></div>
+                <div class="masonry-item"><img src="{{ asset('img/Image-with-CR-patil-3.jpeg') }}" alt="Moments of Joy 3"></div>
+                <div class="masonry-item"><img src="{{ asset('img/Image-with-CR-patil-4.jpeg') }}" alt="Moments of Joy 4"></div>
+                <div class="masonry-item"><img src="{{ asset('img/Image-with-CR-patil-5.jpeg') }}" alt="Moments of Joy 5"></div>
                 <div class="masonry-item"><img src="{{ asset('img/gallery-1.jpg') }}" alt="Gallery 1"></div>
                 <div class="masonry-item"><img src="{{ asset('img/gallery-2.jpg') }}" alt="Gallery 2"></div>
                 <div class="masonry-item"><img src="{{ asset('img/gallery-3.jpg') }}" alt="Gallery 3"></div>
@@ -1593,244 +1589,244 @@ p { margin-bottom: 1rem; max-width: 65ch; }
      <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-        // Hero Slideshow
-        const slides = document.querySelectorAll('.hero-slide');
-        let currentSlide = 0;
+    // Hero Slideshow
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
 
-        if (slides.length > 0) {
-            setInterval(() => {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 5000); // Change every 5 seconds
-        }
+    if (slides.length > 0) {
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 5000); // Change every 5 seconds
+    }
 
-        // --- Mobile Menu Toggle ---
-        const mobileBtn = document.querySelector('.mobile-menu-btn');
-        const mobileDropdown = document.querySelector('.mobile-dropdown');
-        const mobileIcon = mobileBtn ? mobileBtn.querySelector('i') : null;
+    // --- Mobile Menu Toggle ---
+    const mobileBtn = document.querySelector('.mobile-menu-btn');
+    const mobileDropdown = document.querySelector('.mobile-dropdown');
+    const mobileIcon = mobileBtn ? mobileBtn.querySelector('i') : null;
 
-        if (mobileBtn && mobileDropdown) {
-            mobileBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                // Toggle logic using CSS classes or inline style
-                const isHidden = window.getComputedStyle(mobileDropdown).display === 'none';
+    if (mobileBtn && mobileDropdown) {
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Toggle logic using CSS classes or inline style
+            const isHidden = window.getComputedStyle(mobileDropdown).display === 'none';
 
-                if (isHidden) {
-                    mobileDropdown.style.display = 'flex';
-                    if (mobileIcon) {
-                        mobileIcon.classList.remove('fa-bars');
-                        mobileIcon.classList.add('fa-times');
-                    }
-                } else {
-                    mobileDropdown.style.display = 'none';
-                    if (mobileIcon) {
-                        mobileIcon.classList.remove('fa-times');
-                        mobileIcon.classList.add('fa-bars');
-                    }
+            if (isHidden) {
+                mobileDropdown.style.display = 'flex';
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('fa-bars');
+                    mobileIcon.classList.add('fa-times');
                 }
-            });
-
-            // Close on link click
-            mobileDropdown.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileDropdown.style.display = 'none';
-                    if (mobileIcon) {
-                        mobileIcon.classList.remove('fa-times');
-                        mobileIcon.classList.add('fa-bars');
-                    }
-                });
-            });
-
-            // Close on click outside
-            document.addEventListener('click', (e) => {
-                if (!mobileBtn.contains(e.target) && !mobileDropdown.contains(e.target)) {
-                    mobileDropdown.style.display = 'none';
-                    if (mobileIcon) {
-                        mobileIcon.classList.remove('fa-times');
-                        mobileIcon.classList.add('fa-bars');
-                    }
-                }
-            });
-        }
-
-        // --- Smart Navbar (Scroll Effect) ---
-        const navContainer = document.querySelector('.nav-container');
-        const onScroll = () => {
-            if (window.scrollY > 50) {
-                navContainer.classList.add('scrolled');
             } else {
-                navContainer.classList.remove('scrolled');
-            }
-        };
-        window.addEventListener('scroll', onScroll);
-
-        // --- Animated Counters (Intersection Observer) ---
-        const counters = document.querySelectorAll('.counter');
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 2000; // ms
-                    const increment = target / (duration / 16); // 60fps
-
-                    let current = 0;
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            // Keep suffix logic (e.g., '5000+' -> '123+')
-                            const text = counter.innerText;
-                            const suffix = text.replace(/[0-9]/g, '');
-                            counter.innerText = Math.ceil(current) + suffix;
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            const text = counter.innerText;
-                            const suffix = text.replace(/[0-9]/g, '');
-                            counter.innerText = target + suffix;
-                        }
-                    };
-                    updateCounter();
-                    observer.unobserve(counter);
+                mobileDropdown.style.display = 'none';
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('fa-times');
+                    mobileIcon.classList.add('fa-bars');
                 }
-            });
-        }, { threshold: 0.5 });
+            }
+        });
 
-        counters.forEach(counter => counterObserver.observe(counter));
-
-        // --- Smooth Scrolling ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const headerOffset = 120;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
+        // Close on link click
+        mobileDropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileDropdown.style.display = 'none';
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('fa-times');
+                    mobileIcon.classList.add('fa-bars');
                 }
             });
         });
 
-        // --- Gallery Lightbox ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.querySelector('.close-lb');
-        const prevBtn = document.querySelector('.prev');
-        const nextBtn = document.querySelector('.next');
-        let galleryImages = []; // Array to store all gallery images
-        let currentIndex = 0;
-
-        // Delegate click for masonry items
-        const grid = document.getElementById('masonry-grid');
-        if (grid) {
-            // Populate galleryImages array on load
-            galleryImages = Array.from(document.querySelectorAll('.masonry-item img'));
-
-            grid.addEventListener('click', (e) => {
-                if (e.target.tagName === 'IMG') {
-                    // Update collection in case "Load More" added new items
-                    galleryImages = Array.from(document.querySelectorAll('.masonry-item img'));
-                    currentIndex = galleryImages.indexOf(e.target);
-
-                    showImage(currentIndex);
-                    lightbox.style.display = 'flex';
-                    // Trigger reflow for fade in
-                    lightbox.style.opacity = '0';
-                    setTimeout(() => {
-                        lightbox.style.transition = 'opacity 0.3s';
-                        lightbox.style.opacity = '1';
-                    }, 10);
+        // Close on click outside
+        document.addEventListener('click', (e) => {
+            if (!mobileBtn.contains(e.target) && !mobileDropdown.contains(e.target)) {
+                mobileDropdown.style.display = 'none';
+                if (mobileIcon) {
+                    mobileIcon.classList.remove('fa-times');
+                    mobileIcon.classList.add('fa-bars');
                 }
-            });
-        }
-
-        const showImage = (index) => {
-            if (index >= 0 && index < galleryImages.length) {
-                lightboxImg.src = galleryImages[index].src;
-                currentIndex = index;
             }
-        };
+        });
+    }
 
-        const nextImage = (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex + 1) % galleryImages.length;
-            showImage(currentIndex);
-        };
-
-        const prevImage = (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-            showImage(currentIndex);
-        };
-
-        const closeLightbox = () => {
-            lightbox.style.opacity = '0';
-            setTimeout(() => {
-                lightbox.style.display = 'none';
-            }, 300);
-        };
-
-        if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-        if (prevBtn) prevBtn.addEventListener('click', prevImage);
-        if (nextBtn) nextBtn.addEventListener('click', nextImage);
-
-        if (lightbox) {
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightbox();
-            });
+    // --- Smart Navbar (Scroll Effect) ---
+    const navContainer = document.querySelector('.nav-container');
+    const onScroll = () => {
+        if (window.scrollY > 50) {
+            navContainer.classList.add('scrolled');
+        } else {
+            navContainer.classList.remove('scrolled');
         }
+    };
+    window.addEventListener('scroll', onScroll);
 
-        // --- Load More Gallery Logic ---
-        const loadMoreBtn = document.getElementById('load-more-btn');
+    // --- Animated Counters (Intersection Observer) ---
+    const counters = document.querySelectorAll('.counter');
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // ms
+                const increment = target / (duration / 16); // 60fps
 
-        if (loadMoreBtn) {
-            loadMoreBtn.addEventListener('click', () => {
-                const hiddenItems = document.querySelectorAll('.hidden-gallery-item');
-
-                if (hiddenItems.length === 0) {
-                    loadMoreBtn.style.display = 'none';
-                    return;
-                }
-
-                const originalText = loadMoreBtn.innerHTML;
-                loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-
-                // Simulate loading delay for effect
-                setTimeout(() => {
-                    const batchSize = 12; // Show 12 at a time
-                    const itemsToShow = Array.from(hiddenItems).slice(0, batchSize);
-
-                    itemsToShow.forEach(item => {
-                        item.classList.remove('hidden-gallery-item');
-                        item.style.opacity = '0';
-                        item.style.display = 'block'; // Ensure it takes space
-
-                        // Trigger reflow
-                        void item.offsetWidth;
-
-                        item.style.transition = 'opacity 0.6s ease';
-                        item.style.opacity = '1';
-                    });
-
-                    loadMoreBtn.innerHTML = originalText;
-
-                    // Hide button if no more items left
-                    if (document.querySelectorAll('.hidden-gallery-item').length === 0) {
-                        loadMoreBtn.style.display = 'none';
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        // Keep suffix logic (e.g., '5000+' -> '123+')
+                        const text = counter.innerText;
+                        const suffix = text.replace(/[0-9]/g, '');
+                        counter.innerText = Math.ceil(current) + suffix;
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        const text = counter.innerText;
+                        const suffix = text.replace(/[0-9]/g, '');
+                        counter.innerText = target + suffix;
                     }
-                }, 600);
-            });
-        }
+                };
+                updateCounter();
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
 
+    counters.forEach(counter => counterObserver.observe(counter));
+
+    // --- Smooth Scrolling ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 120;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
+
+    // --- Gallery Lightbox ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.close-lb');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let galleryImages = []; // Array to store all gallery images
+    let currentIndex = 0;
+
+    // Delegate click for masonry items
+    const grid = document.getElementById('masonry-grid');
+    if (grid) {
+        // Populate galleryImages array on load
+        galleryImages = Array.from(document.querySelectorAll('.masonry-item img'));
+
+        grid.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                // Update collection in case "Load More" added new items
+                galleryImages = Array.from(document.querySelectorAll('.masonry-item img'));
+                currentIndex = galleryImages.indexOf(e.target);
+
+                showImage(currentIndex);
+                lightbox.style.display = 'flex';
+                // Trigger reflow for fade in
+                lightbox.style.opacity = '0';
+                setTimeout(() => {
+                    lightbox.style.transition = 'opacity 0.3s';
+                    lightbox.style.opacity = '1';
+                }, 10);
+            }
+        });
+    }
+
+    const showImage = (index) => {
+        if (index >= 0 && index < galleryImages.length) {
+            lightboxImg.src = galleryImages[index].src;
+            currentIndex = index;
+        }
+    };
+
+    const nextImage = (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        showImage(currentIndex);
+    };
+
+    const prevImage = (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        showImage(currentIndex);
+    };
+
+    const closeLightbox = () => {
+        lightbox.style.opacity = '0';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+        }, 300);
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', prevImage);
+    if (nextBtn) nextBtn.addEventListener('click', nextImage);
+
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
+
+    // --- Load More Gallery Logic ---
+    const loadMoreBtn = document.getElementById('load-more-btn');
+
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            const hiddenItems = document.querySelectorAll('.hidden-gallery-item');
+
+            if (hiddenItems.length === 0) {
+                loadMoreBtn.style.display = 'none';
+                return;
+            }
+
+            const originalText = loadMoreBtn.innerHTML;
+            loadMoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+
+            // Simulate loading delay for effect
+            setTimeout(() => {
+                const batchSize = 12; // Show 12 at a time
+                const itemsToShow = Array.from(hiddenItems).slice(0, batchSize);
+
+                itemsToShow.forEach(item => {
+                    item.classList.remove('hidden-gallery-item');
+                    item.style.opacity = '0';
+                    item.style.display = 'block'; // Ensure it takes space
+
+                    // Trigger reflow
+                    void item.offsetWidth;
+
+                    item.style.transition = 'opacity 0.6s ease';
+                    item.style.opacity = '1';
+                });
+
+                loadMoreBtn.innerHTML = originalText;
+
+                // Hide button if no more items left
+                if (document.querySelectorAll('.hidden-gallery-item').length === 0) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            }, 600);
+        });
+    }
+
+});
      </script>
 </body>
 
