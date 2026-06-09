@@ -9,10 +9,10 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $totalApplications = Application::count();
-        $pendingApplications = Application::where('status', 'pending')->count();
-        $approvedApplications = Application::where('status', 'approved')->count();
-        $rejectedApplications = Application::where('status', 'rejected')->count();
+        $totalApplications = Application::paid()->count();
+        $pendingApplications = Application::paid()->where('status', 'pending')->count();
+        $approvedApplications = Application::paid()->where('status', 'approved')->count();
+        $rejectedApplications = Application::paid()->where('status', 'rejected')->count();
 
         return view('admin.dashboard', compact(
             'totalApplications',

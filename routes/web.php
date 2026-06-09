@@ -1,4 +1,4 @@
-<?php
+77<?php
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +33,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/applications/{id}', [ApplicationController::class, 'show'])->name('applications.show');
         Route::post('/applications/{id}/update-status', [ApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
         Route::get('/applications/{id}/download/{document}', [ApplicationController::class, 'downloadDocument'])->name('applications.download');
-        Route::put('/installments/{installment}',[ApplicationController::class, 'update'])->name('installments.update');
+        Route::put('/installments/{installment}', [ApplicationController::class, 'update'])->name('installments.update');
 
         // Cities
         Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
@@ -41,11 +41,30 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Route::get('/application', [PublicApplicationController::class, 'create'])
-    ->name('public.application.create');
+// ─── Public Application Routes ─────────────────────────────────────────────────
 
-Route::post('/application', [PublicApplicationController::class, 'store'])
-    ->name('public.application.store');
-
+// Home Page
 Route::get('/', [PublicApplicationController::class, 'homePage'])
     ->name('public.application.homePage');
+
+// Lifetime Scholarship Form  (one-time submission per student, fee ₹1250)
+Route::get('/application/lifetime', [PublicApplicationController::class, 'createLifetime'])
+    ->name('public.application.lifetime.create');
+
+Route::post('/application/lifetime', [PublicApplicationController::class, 'storeLifetime'])
+    ->name('public.application.lifetime.store');
+
+// One-Time Scholarship Form (periodic/yearly, fee ₹250)
+Route::get('/application/one-time', [PublicApplicationController::class, 'createOneTime'])
+    ->name('public.application.onetime.create');
+
+Route::post('/application/one-time', [PublicApplicationController::class, 'storeOneTime'])
+    ->name('public.application.onetime.store');
+
+// Payment Pending Page (shown after successful form submission, before payment)
+Route::get('/application/payment-pending', [PublicApplicationController::class, 'paymentPending'])
+    ->name('public.application.payment.pending');
+
+// Legacy route — kept for backward compatibility, redirects to lifetime form
+Route::get('/application', [PublicApplicationController::class, 'createLifetime'])
+    ->name('public.application.create');
