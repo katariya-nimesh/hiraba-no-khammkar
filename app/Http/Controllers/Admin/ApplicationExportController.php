@@ -14,8 +14,10 @@ class ApplicationExportController extends Controller
         $filters = $request->only([
             'search',
             'status',
+            'form_type',
             'from_date',
             'to_date',
+            'installment_no',
         ]);
 
         return Excel::download(

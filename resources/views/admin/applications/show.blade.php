@@ -42,34 +42,60 @@
 
     <div class="card mb-3">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                {{-- Left: Reference + Type + Payment --}}
                 <div>
-                    <strong>Reference No:</strong> {{ $application->reference_no }}
+                    <div class="mb-1">
+                        <strong>Reference No:</strong>
+                        <span class="fw-bold">{{ $application->reference_no }}</span>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                        {{-- Form Type Badge --}}
+                        @if ($application->form_type === 'lifetime')
+                            <span class="badge" style="background:#1d6fa4; font-size:0.85rem; padding:4px 10px;">Lifetime</span>
+                        @else
+                            <span class="badge" style="background:#2c6e49; font-size:0.85rem; padding:4px 10px;">One-Time</span>
+                        @endif
+
+                        {{-- Payment Status --}}
+                        @php
+                            $pColors = ['paid' => 'success', 'pending' => 'warning', 'failed' => 'danger'];
+                            $pColor  = $pColors[$application->payment_status] ?? 'secondary';
+                        @endphp
+                        <span class="badge badge-{{ $pColor }}">
+                            Payment: {{ ucfirst($application->payment_status) }}
+                        </span>
+
+                        {{-- Fee --}}
+                        @if ($application->payment_amount)
+                            <small class="text-muted">Fee: ₹{{ number_format($application->payment_amount) }}</small>
+                        @endif
+                    </div>
                 </div>
-                <a href="https://wa.me/91{{ preg_replace('/[^0-9]/', '', $application->phone) }}" target="_blank"
-                    class="btn btn-sm btn-success">
-                    <i class="fab fa-whatsapp me-1"></i> WhatsApp
-                </a>
 
-                <form method="POST" action="{{ route('admin.applications.updateStatus', $application->id) }}"
-                    class="d-inline">
-                    @csrf
-                    @method('POST')
+                {{-- Right: WhatsApp + Status Dropdown --}}
+                <div class="d-flex align-items-center gap-2">
+                    <a href="https://wa.me/91{{ preg_replace('/[^0-9]/', '', $application->phone) }}" target="_blank"
+                        class="btn btn-sm btn-success">
+                        <i class="fab fa-whatsapp me-1"></i> WhatsApp
+                    </a>
 
-                    <select name="status" id="statusDropdown" class="form-control form-control-sm status-select"
-                        onchange="this.form.submit()" style="width: 140px;">
-                        <option value="pending" {{ $application->status == 'pending' ? 'selected' : '' }}>
-                            Pending
-                        </option>
-                        <option value="approved" {{ $application->status == 'approved' ? 'selected' : '' }}>
-                            Approved
-                        </option>
-                        <option value="rejected" {{ $application->status == 'rejected' ? 'selected' : '' }}>
-                            Rejected
-                        </option>
-                    </select>
+                    <form method="POST" action="{{ route('admin.applications.updateStatus', $application->id) }}"
+                        class="d-inline">
+                        @csrf
+                        @method('POST')
 
-                </form>
+                        <select name="status" id="statusDropdown" class="form-control form-control-sm status-select"
+                            onchange="this.form.submit()" style="width: 140px;">
+                            <option value="pending" {{ $application->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="approved" {{ $application->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="rejected" {{ $application->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                        </select>
+
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

@@ -1219,7 +1219,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                 <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
             </div>
-            <a href="https://hirabanokhamkar.com/application" class="btn btn-nav check-btn-nav">Apply Now <i
+            <a href="#apply-choice" class="btn btn-nav check-btn-nav">Apply Now <i
                     class="fas fa-arrow-right"></i></a>
         </div>
 
@@ -1229,7 +1229,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
 
             <a href="#gallery">Gallery</a>
             <a href="#contact">Contact</a>
-            <a href="https://hirabanokhamkar.com/application" style="color: var(--saffron); font-weight: 700;">Apply
+            <a href="#apply-choice" style="color: var(--saffron); font-weight: 700;">Apply
                 Now</a>
         </div>
     </nav>
@@ -1256,7 +1256,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     transparent scholarship programs.
                 </p>
                 <div class="hero-btns">
-                    <a href="https://hirabanokhamkar.com/application" class="btn btn-primary">Apply Online</a>
+                    <a href="#apply-choice" class="btn btn-primary">Apply Online</a>
                     <a href="#checklist" class="btn btn-secondary">Required Docs</a>
                 </div>
             </div>
@@ -1379,6 +1379,126 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     <p class="text-muted">Open to girl students studying in Private Schools (Non-RTE) from
                         <strong>Standard 5 to 12</strong>.
                     </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section" id="apply-choice" style="background: white; border-top: 1px solid #eaeaea;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="uppercase text-saffron-header">Scholarship Application</h2>
+                <h3 class="section-title">Select Your Scholarship Scheme</h3>
+                <p class="section-subtitle">Choose the scholarship program that best fits your educational needs and proceed with the online application.</p>
+            </div>
+
+            <style>
+                .apply-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                    gap: 2.5rem;
+                    max-width: 900px;
+                    margin: 0 auto;
+                }
+                .apply-card {
+                    background: var(--bg-light);
+                    padding: 3rem 2rem;
+                    border-radius: 24px;
+                    box-shadow: var(--shadow-md);
+                    transition: all 0.3s ease;
+                    border: 2px solid transparent;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    position: relative;
+                }
+                .apply-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: var(--shadow-xl);
+                }
+                .apply-card.lifetime-card:hover {
+                    border-color: var(--primary);
+                }
+                .apply-card.onetime-card:hover {
+                    border-color: var(--saffron);
+                }
+                .apply-card .card-icon {
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2rem;
+                    margin-bottom: 1.5rem;
+                    background: white;
+                    box-shadow: var(--shadow-sm);
+                }
+                .apply-card.lifetime-card .card-icon {
+                    color: var(--primary);
+                }
+                .apply-card.onetime-card .card-icon {
+                    color: var(--saffron);
+                }
+                .apply-fee-badge {
+                    font-size: 1.25rem;
+                    font-weight: 800;
+                    margin: 1rem 0;
+                    padding: 4px 16px;
+                    border-radius: 50px;
+                }
+                .apply-card.lifetime-card .apply-fee-badge {
+                    background: rgba(10, 38, 66, 0.1);
+                    color: var(--primary);
+                }
+                .apply-card.onetime-card .apply-fee-badge {
+                    background: var(--saffron-light);
+                    color: var(--saffron);
+                }
+                .apply-card-btn {
+                    margin-top: 1.5rem;
+                    width: 100%;
+                }
+            </style>
+
+            <div class="apply-grid">
+                <!-- Lifetime Application Card -->
+                <div class="apply-card lifetime-card">
+                    <div class="card-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h4 class="card-title" style="margin-bottom: 0.5rem;">Lifetime Scholarship</h4>
+                    <p class="text-muted" style="font-size: 0.95rem; min-height: 80px;">
+                        One-time registration for ongoing scholarship support throughout your educational journey (Standard 5 to 12).
+                    </p>
+                    <div class="apply-fee-badge">
+                        Fee: ₹1,250
+                    </div>
+                    <small class="text-muted" style="margin-bottom: 1rem;">One-time processing fee</small>
+                    <a href="{{ route('public.application.lifetime.create') }}" class="btn btn-primary apply-card-btn" style="background: var(--primary); box-shadow: 0 4px 6px rgba(10, 38, 66, 0.25);">
+                        Apply Lifetime
+                    </a>
+                </div>
+
+                <!-- One-Time Application Card -->
+                <div class="apply-card onetime-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h4 class="card-title" style="margin-bottom: 0.5rem;">One-Time Scholarship</h4>
+                    <p class="text-muted" style="font-size: 0.95rem; min-height: 80px;">
+                        Periodic/yearly scholarship assistance for students seeking single-term or standard-specific educational support.
+                    </p>
+                    <div class="apply-fee-badge">
+                        Fee: ₹250
+                    </div>
+                    <small class="text-muted" style="margin-bottom: 1rem;">Per application processing fee</small>
+                    <a href="{{ route('public.application.onetime.create') }}" class="btn btn-primary apply-card-btn">
+                        Apply One-Time
+                    </a>
                 </div>
             </div>
         </div>

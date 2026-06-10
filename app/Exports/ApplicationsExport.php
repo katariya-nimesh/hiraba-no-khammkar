@@ -4,7 +4,6 @@ namespace App\Exports;
 
 use App\Models\Application;
 use Maatwebsite\Excel\Concerns\FromQuery;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -24,25 +23,40 @@ class ApplicationsExport implements
 
     public function query()
     {
-        $query = Application::query();
+        // Base: only paid applications (mirrors admin listing rule)
+        $query = Application::query()->paid();
 
         // 🔍 Global search
         if (!empty($this->filters['search'])) {
             $search = $this->filters['search'];
             $query->where(function ($q) use ($search) {
-                $q->where('student_name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhere('student_aadhar', 'like', "%{$search}%");
+                $q->where('student_name',    'like', "%{$search}%")
+                  ->orWhere('email',         'like', "%{$search}%")
+                  ->orWhere('phone',         'like', "%{$search}%")
+                  ->orWhere('reference_no',  'like', "%{$search}%")
+                  ->orWhere('student_aadhar','like', "%{$search}%");
             });
         }
 
-        // Status
+        // 📋 Form type filter
+        if (!empty($this->filters['form_type'])) {
+            $query->where('form_type', $this->filters['form_type']);
+        }
+
+        // 📌 Status filter
         if (!empty($this->filters['status'])) {
             $query->where('status', $this->filters['status']);
         }
 
-        // Date range
+        // 📌 Installment filter
+        if (!empty($this->filters['installment_no'])) {
+            $query->whereHas('installments', function ($q) {
+                $q->where('installment_no', $this->filters['installment_no'])
+                  ->where('is_paid', true);
+            });
+        }
+
+        // 📅 Date range filter
         if (!empty($this->filters['from_date'])) {
             $query->whereDate('created_at', '>=', $this->filters['from_date']);
         }
@@ -58,7 +72,10 @@ class ApplicationsExport implements
     {
         return [
             'Reference No',
+            'Form Type',
             'Status',
+            'Payment Status',
+            'Payment Amount (₹)',
 
             'Student Name',
             'Father Name',
@@ -78,8 +95,8 @@ class ApplicationsExport implements
             'Phone',
             'Email',
             'Total Family Members',
-            'Parent\'s Illness',
-            'Parent\'s Business',
+            "Parent's Illness",
+            "Parent's Business",
             'Monthly Income',
 
             'School Name',
@@ -104,7 +121,7 @@ class ApplicationsExport implements
             'Installment 3 Paid Date',
 
             'Remarks',
-            'Created Date',
+            'Submitted Date',
         ];
     }
 
@@ -116,7 +133,10 @@ class ApplicationsExport implements
 
         return [
             $application->reference_no,
+            $application->form_type_label,        // "Lifetime" or "One-Time"
             ucfirst($application->status),
+            ucfirst($application->payment_status),
+            $application->payment_amount,
 
             $application->student_name,
             $application->father_name,
@@ -126,7 +146,7 @@ class ApplicationsExport implements
             $application->father_aadhar,
             $application->mother_aadhar,
 
-            $application->home_type,
+            ucfirst($application->home_type),
             $application->address,
             $application->village,
             $application->district,
@@ -171,6 +191,6 @@ class ApplicationsExport implements
 
     public function chunkSize(): int
     {
-        return 500; // safe for large exports
+        return 500;
     }
 }

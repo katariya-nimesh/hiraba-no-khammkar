@@ -1,0 +1,429 @@
+@extends('layouts.public')
+
+@section('title', 'One-Time Scholarship Application')
+
+@section('content_header')
+    <h1>One-Time Scholarship Application</h1>
+@endsection
+
+@section('content')
+
+    @if (!$showForm)
+        {{-- NORMS SECTION --}}
+        <div class="form-section">
+            <div class="form-section-header">
+                Scholarship Rules &amp; Norms
+            </div>
+
+            <div class="p-3">
+                {{-- Fee Banner --}}
+                <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
+                    <span style="font-size:1.4rem; margin-right:10px;">💳</span>
+                    <div>
+                        <strong>One-Time Scholarship — Processing Fee: ₹250</strong><br>
+                        <small class="text-muted">Per application, non-refundable. Payment is required after form submission for your application to be processed.</small>
+                    </div>
+                </div>
+
+                <ol>
+                    <li class="subtitle-text">કોઈપણ પ્રકારની લાગવગ કે ભલામણ સ્વીકારવામાં આવશે નહિ.</li>
+                    <li>આ ફોર્મ ધો. ૫ થી ૧૨ ધોરણમાં ભણતી વિદ્યાર્થીનીઓ માટે છે.</li>
+                    <li>આ યોજનાની ૭૫૦૦/- રકમ ત્રણ ભાગમાં જમા થશે.</li>
+                    <li>આ યોજનાની રકમ શાળાના બેંક એકાઉન્ટમાં જમા થશે.</li>
+                    <li>આ ફોર્મ વાર્ષિક/સામયિક ધોરણે ભરી શકાય છે.</li>
+                    <li>આ યોજનાની રકમ ફોર્મ ચકાસણી કર્યા બાદ આપવામાં આવશે.</li>
+                    <li>શાળામાં જયારે સહી સિક્કા કરવા જાવ ત્યારે ફરજીયાત A/C હોલ્ડર નામ લખાવીને આવવું અને A/C
+                        હોલ્ડર નામ નહિ હોય તો ફોર્મ સ્વીકારવામાં આવશે નહિ.</li>
+                    <li>જો કોઈ બીમારી હોય અથવા વાલીની ગેર હાજરી હોય તો તેના પુરાવા ફરજીયાત ફોર્મ સાથે લગાવવાના.</li>
+                    <li>આ યોજનામાં સરકારી, અર્ધસરકારી, RTE, માટે માન્ય ગણાશે નહિ.</li>
+                    <li class="subtitle-text">આ યોજનામાં ખોટી માહિતી આપવામાં આવશે તો ફોર્મ રદ કરવામાં આવશે.</li>
+                </ol>
+
+                <div class="mt-3 text-center">
+                    <form method="GET">
+                        <input type="hidden" name="agree" value="1">
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn submit-button">
+                                I Agree &amp; Proceed
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @else
+        {{-- FEE REMINDER BANNER --}}
+        <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
+            <span style="font-size:1.3rem; margin-right:10px;">⚠️</span>
+            <div>
+                <strong>Processing Fee: ₹250</strong> &nbsp;|&nbsp; One-Time Scholarship Form
+                <br><small class="text-muted">Your application will be visible to admin only after successful payment.</small>
+            </div>
+        </div>
+
+        <form id="formSection" action="{{ route('public.application.onetime.store') }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+
+            {{-- Hidden form type --}}
+            <input type="hidden" name="form_type" value="one_time">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h5 class="mb-3 form-section-header">Student Details</h5>
+                    <div class="form-section">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Student Name <span class="text-danger">*</span></label>
+                                <input type="text" name="student_name" value="{{ old('student_name') }}"
+                                    class="form-control @error('student_name') is-invalid @enderror" required>
+                                @error('student_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Father Name <span class="text-danger">*</span></label>
+                                <input type="text" name="father_name" value="{{ old('father_name') }}"
+                                    class="form-control @error('father_name') is-invalid @enderror" required>
+                                @error('father_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Surname <span class="text-danger">*</span></label>
+                                <input type="text" name="surname" value="{{ old('surname') }}"
+                                    class="form-control @error('surname') is-invalid @enderror" required>
+                                @error('surname')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Mother Name <span class="text-danger">*</span></label>
+                                <input type="text" name="mother_name" value="{{ old('mother_name') }}"
+                                    class="form-control @error('mother_name') is-invalid @enderror" required>
+                                @error('mother_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Student Aadhar <span class="text-danger">*</span></label>
+                                <input type="text" name="student_aadhar" value="{{ old('student_aadhar') }}"
+                                    class="form-control aadhar-input @error('student_aadhar') is-invalid @enderror"
+                                    maxlength="14" placeholder="XXXX XXXX XXXX" required>
+                                @error('student_aadhar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Father Aadhar <span class="text-danger">*</span></label>
+                                <input type="text" name="father_aadhar" value="{{ old('father_aadhar') }}"
+                                    class="form-control aadhar-input @error('father_aadhar') is-invalid @enderror"
+                                    maxlength="14" placeholder="XXXX XXXX XXXX" required>
+                                @error('father_aadhar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Mother Aadhar <span class="text-danger">*</span></label>
+                                <input type="text" name="mother_aadhar" value="{{ old('mother_aadhar') }}"
+                                    class="form-control aadhar-input @error('mother_aadhar') is-invalid @enderror"
+                                    maxlength="14" placeholder="XXXX XXXX XXXX" required>
+                                @error('mother_aadhar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h5 class="mb-3 form-section-header">Address Details</h5>
+                    <div class="form-section">
+                        <div class="row">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Home <span class="text-danger">*</span></label>
+                                <select name="home_type" class="form-select @error('home_type') is-invalid @enderror">
+                                    <option value="">Select</option>
+                                    <option value="own" @if(old('home_type') == 'own') selected @endif>Own</option>
+                                    <option value="rent" @if(old('home_type') == 'rent') selected @endif>Rent</option>
+                                </select>
+                                @error('home_type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" required>{{ old('address') }}</textarea>
+                                @error('address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Village <span class="text-danger">*</span></label>
+                                <input type="text" name="village" value="{{ old('village') }}"
+                                    class="form-control @error('village') is-invalid @enderror" required>
+                                @error('village')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">District <span class="text-danger">*</span></label>
+                                <select name="district" class="form-select @error('district') is-invalid @enderror" required>
+                                    <option value="">Select District</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city }}" @if(old('district') == $city) selected @endif>{{ $city }}</option>
+                                    @endforeach
+                                </select>
+                                @error('district')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">State <span class="text-danger">*</span></label>
+                                <input type="text" name="state" value="{{ old('state') }}"
+                                    class="form-control @error('state') is-invalid @enderror" required>
+                                @error('state')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pincode <span class="text-danger">*</span></label>
+                                <input type="text" name="pincode" value="{{ old('pincode') }}"
+                                    class="form-control @error('pincode') is-invalid @enderror"
+                                    maxlength="6" placeholder="Enter 6-digit Pincode">
+                                @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h5 class="mb-3 form-section-header">Contact &amp; Family</h5>
+                    <div class="form-section">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+                                <input type="text" name="phone" value="{{ old('phone') }}"
+                                    class="form-control phone-input @error('phone') is-invalid @enderror"
+                                    required maxlength="11" placeholder="XXXXX XXXXX">
+                                @error('phone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <input type="email" name="email" value="{{ old('email') }}"
+                                    class="form-control @error('email') is-invalid @enderror" required>
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Total Family Members <span class="text-danger">*</span></label>
+                                <input type="number" name="total_family_members"
+                                    value="{{ old('total_family_members') }}"
+                                    class="form-control @error('total_family_members') is-invalid @enderror"
+                                    min="1" required>
+                                @error('total_family_members')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Business <span class="text-danger">*</span></label>
+                                <input type="text" name="business" value="{{ old('business') }}"
+                                    class="form-control @error('business') is-invalid @enderror" required>
+                                @error('business')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Income <span class="text-danger">*</span></label>
+                                <input type="text" name="income" value="{{ old('income') }}"
+                                    class="form-control @error('income') is-invalid @enderror" required>
+                                @error('income')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Parent's Illness</label>
+                                <input type="text" name="illness" value="{{ old('illness') }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h5 class="mb-3 form-section-header">School Information</h5>
+                    <div class="form-section">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+                                <input type="text" name="school_name" value="{{ old('school_name') }}"
+                                    class="form-control @error('school_name') is-invalid @enderror" required>
+                                @error('school_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Standard <span class="text-danger">*</span></label>
+                                <input type="number" name="standard" value="{{ old('standard') }}"
+                                    class="form-control @error('standard') is-invalid @enderror"
+                                    min="5" max="12" required>
+                                @error('standard')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold">Phone No <span class="text-danger">*</span></label>
+                                <input type="text" name="school_phone" value="{{ old('school_phone') }}"
+                                    class="form-control phone-input @error('school_phone') is-invalid @enderror"
+                                    required maxlength="11" placeholder="XXXXX XXXXX">
+                                @error('school_phone')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="">
+                                <label class="form-label fw-semibold">Address <span class="text-danger">*</span></label>
+                                <textarea name="school_address"
+                                    class="form-control @error('school_address') is-invalid @enderror"
+                                    required>{{ old('school_address') }}</textarea>
+                                @error('school_address')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <h5>School Bank Details:</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Account Holder Name <span class="text-danger">*</span></label>
+                                <input type="text" name="school_account_holder_name"
+                                    value="{{ old('school_account_holder_name') }}"
+                                    class="form-control @error('school_account_holder_name') is-invalid @enderror"
+                                    placeholder="Enter Account Holder Name">
+                                @error('school_account_holder_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Bank Name <span class="text-danger">*</span></label>
+                                <input type="text" name="school_bank_name" value="{{ old('school_bank_name') }}"
+                                    class="form-control @error('school_bank_name') is-invalid @enderror"
+                                    placeholder="Enter Bank Name">
+                                @error('school_bank_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label fw-semibold">Account Number <span class="text-danger">*</span></label>
+                                <input type="text" name="school_account_number"
+                                    value="{{ old('school_account_number') }}"
+                                    class="form-control @error('school_account_number') is-invalid @enderror"
+                                    placeholder="Enter Account Number">
+                                @error('school_account_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label fw-semibold">IFSC Code <span class="text-danger">*</span></label>
+                                <input type="text" name="school_ifsc" value="{{ old('school_ifsc') }}"
+                                    class="form-control text-uppercase @error('school_ifsc') is-invalid @enderror"
+                                    placeholder="Example: SBIN0001234">
+                                @error('school_ifsc')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-12 mt-3">
+                                <label class="form-label fw-semibold">Upload Cancelled Cheque <span class="text-danger">*</span></label>
+                                <input type="file" name="cancelled_cheque"
+                                    class="form-control @error('cancelled_cheque') is-invalid @enderror"
+                                    accept=".jpg,.jpeg,.png,.pdf">
+                                <small class="text-muted">Allowed formats: JPG, PNG, PDF (Max 2MB)</small>
+                                @error('cancelled_cheque')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <h5 class="mb-3 form-section-header">Documents Upload</h5>
+                    <div class="form-section">
+                        @php
+                            $docs = [
+                                'student_aadhar_doc'  => 'Student Aadhar',
+                                'father_aadhar_doc'   => 'Father Aadhar',
+                                'mother_aadhar_doc'   => 'Mother Aadhar',
+                                'passport_photo'      => 'Passport Photo',
+                                'school_letterhead'   => 'School Letterhead',
+                                'electricity_bill'    => 'Electricity Bill',
+                                'death_certificate'   => 'Death Certificate',
+                                'last_year_marksheet' => 'Last Year Marksheet',
+                                'other_document'      => 'Other Document',
+                            ];
+                        @endphp
+                        <div class="row">
+                            @foreach ($docs as $name => $label)
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">
+                                        {{ $label }}
+                                        @if ($name != 'death_certificate' && $name != 'other_document')
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
+                                    <input type="file" name="{{ $name }}" class="form-control"
+                                        @if ($name != 'death_certificate' && $name != 'other_document') required @endif>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-right">
+                    <button type="submit" class="btn submit-button">Submit Application</button>
+                </div>
+            </div>
+
+        </form>
+    @endif
+
+@endsection
+
+@section('scripts')
+    <script>
+        document.querySelectorAll('.aadhar-input').forEach(input => {
+            input.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                value = value.substring(0, 12);
+                value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                this.value = value;
+            });
+        });
+
+        document.querySelectorAll('.phone-input').forEach(input => {
+            input.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                value = value.substring(0, 10);
+                value = value.replace(/(\d{5})(?=\d)/g, '$1 ');
+                this.value = value;
+            });
+        });
+    </script>
+@endsection

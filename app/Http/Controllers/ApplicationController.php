@@ -15,21 +15,27 @@ class ApplicationController extends Controller
     {
         $filters = $request->validatedData();
 
-        $query = Application::query();
+        // Base query — ONLY paid applications are visible in admin (payment rule)
+        $query = Application::query()->paid();
 
-        // 🔍 Global search (all fields)
+        // 🔍 Global search
         if (!empty($filters['search'])) {
             $query->where(function ($q) use ($filters) {
-                $q->where('student_name', 'like', "%{$filters['search']}%")
-                    ->orWhere('email', 'like', "%{$filters['search']}%")
-                    ->orWhere('phone', 'like', "%{$filters['search']}%")
-                    ->orWhere('village', 'like', "%{$filters['search']}%")
-                    ->orWhere('district', 'like', "%{$filters['search']}%")
-                    ->orWhere('state', 'like', "%{$filters['search']}%")
-                    ->orWhere('pincode', 'like', "%{$filters['search']}%")
-                    ->orWhere('student_aadhar', 'like', "%{$filters['search']}%");
-                // add more searchable columns if needed
+                $q->where('student_name',   'like', "%{$filters['search']}%")
+                  ->orWhere('email',        'like', "%{$filters['search']}%")
+                  ->orWhere('phone',        'like', "%{$filters['search']}%")
+                  ->orWhere('village',      'like', "%{$filters['search']}%")
+                  ->orWhere('district',     'like', "%{$filters['search']}%")
+                  ->orWhere('state',        'like', "%{$filters['search']}%")
+                  ->orWhere('pincode',      'like', "%{$filters['search']}%")
+                  ->orWhere('reference_no', 'like', "%{$filters['search']}%")
+                  ->orWhere('student_aadhar','like', "%{$filters['search']}%");
             });
+        }
+
+        // 📋 Form type filter (lifetime / one_time)
+        if (!empty($filters['form_type'])) {
+            $query->where('form_type', $filters['form_type']);
         }
 
         // 📌 Status filter
@@ -37,7 +43,7 @@ class ApplicationController extends Controller
             $query->where('status', $filters['status']);
         }
 
-        // 📌 Installment payment filter - show records where selected installment is paid
+        // 📌 Installment payment filter
         if (!empty($filters['installment_no'])) {
             $query->whereHas('installments', function ($q) use ($filters) {
                 $q->where('installment_no', $filters['installment_no'])
@@ -54,8 +60,7 @@ class ApplicationController extends Controller
             $query->whereDate('created_at', '<=', $filters['to_date']);
         }
 
-        $applications =  $query->latest()->get();
-
+        $applications = $query->latest()->get();
 
         return view('admin.applications.index', compact('applications'));
     }
@@ -63,7 +68,6 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $application = Application::findOrFail($id);
-
         return view('admin.applications.show', compact('application'));
     }
 
@@ -87,12 +91,12 @@ class ApplicationController extends Controller
     {
         $request->validate([
             'is_paid' => 'required|boolean',
-            'note' => 'nullable|string|max:2000',
+            'note'    => 'nullable|string|max:2000',
         ]);
 
         $data = [
             'is_paid' => $request->is_paid,
-            'note' => $request->note,
+            'note'    => $request->note,
         ];
 
         if ($request->is_paid && !$installment->paid_at) {
