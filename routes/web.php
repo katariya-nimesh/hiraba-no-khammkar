@@ -65,6 +65,14 @@ Route::post('/application/one-time', [PublicApplicationController::class, 'store
 Route::get('/application/payment-pending', [PublicApplicationController::class, 'paymentPending'])
     ->name('public.application.payment.pending');
 
+// Payment Callback Route
+Route::post('/application/payment-callback', [PublicApplicationController::class, 'paymentCallback'])
+    ->name('public.application.payment.callback');
+
+// Payment Success Page
+Route::get('/application/payment-success', [PublicApplicationController::class, 'paymentSuccess'])
+    ->name('public.application.payment.success');
+
 // Legacy route — kept for backward compatibility, redirects to lifetime form
 Route::get('/application', [PublicApplicationController::class, 'createLifetime'])
     ->name('public.application.create');

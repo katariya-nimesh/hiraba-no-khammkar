@@ -60,22 +60,51 @@
                 </div>
             </div>
 
-            {{-- Payment CTA (stub) --}}
+            {{-- Payment Alert for Errors --}}
+            @if(session('error'))
+                <div class="alert alert-danger mb-4" role="alert">
+                    <strong>❌ Payment Failed:</strong> {{ session('error') }}
+                </div>
+            @endif
+
+            {{-- Payment CTA --}}
             <div class="text-center mb-3">
-                <button class="btn btn-lg w-100 disabled"
-                    style="background: #e0e0e0; color: #999; cursor: not-allowed; border-radius: 8px; font-size: 1.1rem;"
-                    disabled>
-                    🔒 Pay ₹{{ number_format($paymentAmount) }} — Coming Soon
-                </button>
-                <small class="text-muted d-block mt-2">
-                    Online payment via Razorpay will be available shortly.<br>
-                    Please contact us for manual payment in the meantime.
-                </small>
+                @if($orderId)
+                    <button id="rzp-button1" class="btn btn-lg w-100 text-white"
+                        style="background: #2c6e49; border-radius: 0; font-size: 1.1rem; border: 2px solid var(--pdf-black); font-weight: bold; transition: background 0.2s;"
+                        onmouseover="this.style.background='#1e4d32'"
+                        onmouseout="this.style.background='#2c6e49'">
+                        🔒 Pay ₹{{ number_format($paymentAmount) }} via Razorpay
+                    </button>
+                    <small class="text-muted d-block mt-2">
+                        Online payment via Razorpay. Securely complete your payment.
+                    </small>
+                @else
+                    <button class="btn btn-lg w-100 disabled"
+                        style="background: #e0e0e0; color: #999; cursor: not-allowed; border-radius: 0; font-size: 1.1rem; border: 2px solid var(--pdf-black);"
+                        disabled>
+                        ⚠️ Payment Gateway Offline
+                    </button>
+                    <small class="text-danger d-block mt-2">
+                        Unable to connect to Razorpay. Please refresh the page or try again.
+                    </small>
+                @endif
             </div>
+
+            {{-- Hidden Form for callback --}}
+            @if($orderId)
+                <form id="payment-callback-form" action="{{ route('public.application.payment.callback') }}" method="POST" style="display: none;">
+                    @csrf
+                    <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+                    <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+                    <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+                    <input type="hidden" name="reference_no" value="{{ $referenceNo }}">
+                </form>
+            @endif
 
             {{-- Back Link --}}
             <div class="text-center mt-3">
-                <a href="{{ route('public.application.homePage') }}" class="btn btn-outline-secondary btn-sm">
+                <a href="{{ route('public.application.homePage') }}" class="btn btn-outline-secondary btn-sm" style="border-radius: 0; border: 1.5px solid var(--pdf-black); font-weight: 600;">
                     ← Back to Home
                 </a>
             </div>
@@ -83,4 +112,39 @@
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    @if($orderId)
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            var options = {
+                "key": "{{ config('services.razorpay.key_id') }}",
+                "amount": "{{ $paymentAmount * 100 }}",
+                "currency": "INR",
+                "name": "Hiraba No Khamkar",
+                "description": "Scholarship Application Fee ({{ ucfirst($formType) }})",
+                "order_id": "{{ $orderId }}",
+                "handler": function (response){
+                    document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                    document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+                    document.getElementById('razorpay_signature').value = response.razorpay_signature;
+                    document.getElementById('payment-callback-form').submit();
+                },
+                "prefill": {
+                    "name": "{{ $application->student_name }} {{ $application->father_name }} {{ $application->surname }}",
+                    "email": "{{ $application->email }}",
+                    "contact": "{{ $application->phone }}"
+                },
+                "theme": {
+                    "color": "#A00000"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            document.getElementById('rzp-button1').onclick = function(e){
+                rzp1.open();
+                e.preventDefault();
+            }
+        </script>
+    @endif
 @endsection
