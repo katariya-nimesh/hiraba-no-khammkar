@@ -347,7 +347,7 @@
                             'Student Aadhar Card' => 'student_aadhar_doc',
                             'Father Aadhar Card' => 'father_aadhar_doc',
                             'Mother Aadhar Card' => 'mother_aadhar_doc',
-                            'Passport Photo' => 'passport_photo',
+                            'Passport Size Photo' => 'passport_photo',
                             'School Letterhead' => 'school_letterhead',
                             'Electricity Bill' => 'electricity_bill',
                             'Death Certificate' => 'death_certificate',

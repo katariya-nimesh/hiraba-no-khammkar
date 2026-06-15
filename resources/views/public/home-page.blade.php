@@ -1246,7 +1246,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
 
         <div class="hero-container">
             <div class="glass-card">
-                <span class="badge-pill">Piyushbhai Desai Foundation</span>
+                <span class="badge-pill">Hiraba No Khamkar Foundation</span>
                 <h1 class="hero-title">
                     <span class="gujarati text-gold d-block">હીરાબાનો ખમ્મકાર</span>
                     <span class="text-primary">Empowering The Future</span>
@@ -1283,7 +1283,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
         <div class="blob blob-2"></div>
         <div class="impact-grid">
             <div class="impact-item">
-                <div class="counter" data-target="5000">0+</div>
+                <div class="counter" data-target="10000">0+</div>
                 <div class="counter-label">Students Benefited</div>
             </div>
             <div class="impact-item">
@@ -1387,7 +1387,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
 
 
     <section class="section" id="apply-choice" style="background: white; border-top: 1px solid #eaeaea;">
-        <div class="container">
+        <div class="container" style="padding: 0;">
             <div class="section-header">
                 <h2 class="uppercase text-saffron-header">Scholarship Application</h2>
                 <h3 class="section-title">Select Your Scholarship Scheme</h3>
@@ -1472,7 +1472,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     </div>
                     <h4 class="card-title" style="margin-bottom: 0.5rem;">Lifetime Scholarship</h4>
                     <p class="text-muted" style="font-size: 0.95rem; min-height: 80px;">
-                        One-time registration for ongoing scholarship support throughout your educational journey (Standard 5 to 12).
+                        One-time registration for ongoing scholarship support throughout your educational journey (Standard 5 to college).
                     </p>
                     <div class="apply-fee-badge">
                         Fee: ₹1,250
@@ -1528,7 +1528,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     <div class="doc-item">
                         <i class="fas fa-camera text-saffron icon-lg"></i>
                         <div>
-                            <h5 class="font-bold text-primary">Passport Photos</h5>
+                            <h5 class="font-bold text-primary">Passport Size Photo</h5>
                             <p class="text-muted">Recent digital photograph.</p>
                         </div>
                     </div>
@@ -1637,8 +1637,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                         <img src="img/logo.png" alt="Heeraba No Khamkar" class="footer-logo-img">
                     </div>
                     <p class="footer-desc">
-                        Empowering girls through education since 2008. A philanthropic initiative by the Piyushbhai
-                        Desai Foundation.
+                        Empowering girls through education since 2008. A philanthropic initiative by The Hiraba No Khamkar Foundation.
                     </p>
                     <small class="footer-cin">CIN: U85500GJ2026NPL171502</small>
                 </div>
@@ -1658,7 +1657,7 @@ p { margin-bottom: 1rem; max-width: 65ch; }
                     <h4 class="footer-title">Contact Us</h4>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>502, Empire State Building,<br>Udhna Darwaja, Surat</span>
+                        <span>103, Empire State Building, Ring Road,<br>Udhna Darwaja, Surat 395002</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone-alt"></i>
