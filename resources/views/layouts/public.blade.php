@@ -232,6 +232,16 @@
             color: #c00000;
             font-weight: 700;
         }
+
+        @media (max-width: 768px) {
+            .logo-box img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                display: block;
+                object-fit: contain;
+            }
+        }
     </style>
 </head>
 
@@ -245,7 +255,7 @@
                 {{-- Left Gujarati Intro --}}
                 <div class="header-left intro-box p-2">
                     <p class="mb-1 fw-bold intro-text">
-                        આ યોજનાનો લાભ ધોરણ ૫ થી ૧૨ વિદ્યાર્થીનીઓ માટે
+                        આ યોજનાનો લાભ ધોરણ ૫ થી કોલેજની વિદ્યાર્થીનીઓ માટે
                         <span class="amount-highlight">રૂ. ૭૫૦૦/-</span>
                         શાળાની ફી માટેની આર્થિક સહાય
                     </p>
@@ -275,7 +285,7 @@
             </div>
 
             {{-- Main Title --}}
-            <div class="text-center">
+            <div class="text-center logo-box">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" height="200">
                 {{-- <h1 class="main-title">
                     “ હીરાબાનો ખમકાર ”
@@ -345,10 +355,10 @@
                     <div class="col-md-4 text-md-end">
                         <div class="small mb-2">
                             <i class="fas fa-map-marker-alt me-2 icon-color"></i>
-                            502, Empire State Building
+                            103, Empire State Building, Ring Road,
                         </div>
                         <div class="small text-muted">
-                            Udhana Darwaja, Surat
+                            Udhna Darwaja, Surat 395002
                         </div>
                     </div>
 
