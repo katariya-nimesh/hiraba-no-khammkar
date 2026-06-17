@@ -352,7 +352,7 @@
                             'Electricity Bill' => 'electricity_bill',
                             'Death Certificate' => 'death_certificate',
                             'Last Year Marksheet' => 'last_year_marksheet',
-                            'Other Document' => 'other_document',
+                            'Other Document (Medical Report)' => 'other_document',
                         ];
                     @endphp
 
