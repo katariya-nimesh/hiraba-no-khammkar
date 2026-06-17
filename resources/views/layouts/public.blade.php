@@ -256,7 +256,7 @@
                 <div class="header-left intro-box p-2">
                     <p class="mb-1 fw-bold intro-text">
                         આ યોજનાનો લાભ ધોરણ ૫ થી કોલેજની વિદ્યાર્થીનીઓ માટે
-                        <span class="amount-highlight">રૂ. ૭૫૦૦/-</span>
+                        <!-- <span class="amount-highlight">રૂ. ૭૫૦૦/-</span> -->
                         શાળાની ફી માટેની આર્થિક સહાય
                     </p>
 
